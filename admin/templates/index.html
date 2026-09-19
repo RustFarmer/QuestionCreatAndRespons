@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AdminPageCreateQuestionList</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='newStyle.css')}}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cloudflare.com">
+</head>
+<body>
+<header class="header">
+    <div>
+        <h1>
+            <a class="header-text" href="/">Change Image</a>
+        </h1>
+    </div>
+    <div class="change-image-result-card">
+        <a href="/updateIdQuestion">
+        <div class="change-image-result"><div class="fa fa-id-card"></div>
+            Обновить id вопросов
+        </div>
+        </a>
+    </div>
+    <div class="change-image-result-card">
+        <div class="change-image-result">
+            <a href="/changeImageResultScreen"><div class="fa fa-exchange-alt"></div> Сменить картинки</a>
+        </div>
+    </div>
+    <div class="download_question">
+        <button id="toggleUploadBtn" class="toggle-upload-btn fa fa-download">
+            загрузить вопрос
+        </button>
+        <div id="uploadFormContainer" class="upload-form-container">
+            <form method="post" action="/download_question">
+                <label for="question_input">Введите ссылку:</label>
+                <textarea id="question_input" name="question_data" rows="3"></textarea>
+                <button type="submit">Загрузить</button>
+            </form>
+        </div>
+    </div>
+
+    {% if update %}
+        {% if update_url %}
+        <div class="update-card">
+            <div class="update-icon">
+                <a class="fa fa-download" href="{{ update_url }}"></a>
+            </div>
+        </div>
+        {% endif %}
+    {% endif %}
+    <div class="create-question-button">
+        <a href="/create_question"><i class="fa fa-cookie-bite"></i> Создать вопрос</a>
+    </div>
+    <div class="update-card">
+        <div class="settings-icon"><a class="fa fa-gear" href="/settings"></a></div>
+    </div>
+    <div class="update-card">
+        <a class="fas fa-arrow-right-from-bracket" href="/exitProgram"> Закрыть</a>
+    </div>
+</header>
+
+<header class="list-blanc-question">
+    <div class="OpenBlancQuestion">
+        <a href="/OpenBlancQuestion">
+            <h1><i class="fa fa-list-ul"></i> Список бланков вопросов <i class="fa fa-list-ul"></i> </h1>
+        </a>
+    </div>
+    <div class="pass-cut-off">
+        <a href="/pass_cut_off">
+            <h1>
+                <i class="fa fa-praying-hands"></i> Проходная отсечка <i class="fa fa-praying-hands"></i></h1>
+        </a>
+    </div>
+    <div class="pass-cut-off">
+        <a href="/set-password">
+            <h1>
+                <i class="fa fa-key"></i> Установить пароль для повторного прохождения теста <i class="fa fa-key"></i></h1>
+        </a>
+    </div>
+</header>
+
+<div class="main-card">
+    <form method="post" action="/addListQuestion" class="input-text">
+        <label for="add_list_question">Введите название группы вопросов:</label>
+        <input type="text" id="add_list_question" name="add_list_question" required placeholder="Философия">
+        {% if items is defined and items %}
+            <button type="submit" class="btn-small btn-add-answer">Добавить лист</button>
+        {% else %}
+            <p class="no-items">Необходимо добавить хотя бы 1 вопрос</p>
+        {% endif %}
+    </form>
+    <div class="question-card">
+        <h2>Список вопросов</h2>
+        {% if items %}
+            {% for item in items %}
+                <div class="question">
+                    <div class="share_question">
+                        <button class="share_question_card" data-id="{{ item.Qst.id }}">
+                            <div class="fa fa-share" style="color: white;">
+                                Поделиться <div class="fa fa-link"></div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="del_question">
+                        <div class="change-question">
+                            <a href="/changeQuestionAnswer/{{ item.Qst.id }}">
+                                <h2><i class="fa fa-edit"></i> Редактировать</h2>
+                            </a>
+                        </div>
+                        <div class="btn_del_qst">
+                            <a href="{{ url_for('del_qs', qst_id=item.Qst.id) }}">
+                                <i class="fa fa-minus-square"></i> Удалить вопрос <i class="fa fa-minus-square"></i></a>
+                        </div>
+                    </div>
+                    <div class="question-name"><h2>Вопрос №{{ item.Qst.id }}: {{ item.Qst.question_name }}</h2></div>
+                    <h2>Ответы</h2>
+                    {% if item.Qst.answer %}
+                        {% for answers in item.Qst.answer %}
+                            <div class="question-answer">
+                                <h3>{{ answers }}</h3>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <h2>Правильный ответ</h2>
+                    {% if item.Qst.right_answer %}
+                        {% for right_answers in item.Qst.right_answer %}
+                            <div class="question-answer question-answer-true">
+                                <h3> {{ right_answers }} </h3>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-items">Создайте первый вопрос!</p>
+        {% endif %}
+    </div>
+<script>
+    document.getElementById('toggleUploadBtn').addEventListener('click', function () {
+        const container = document.getElementById('uploadFormContainer');
+        container.style.display = (container.style.display === 'none' || container.style.display === '') ? 'block' : 'none';
+    });
+
+    document.querySelectorAll('.share_question_card').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const questionId = this.dataset.id;
+            fetch(`/api/share/${questionId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.url) {
+                        navigator.clipboard.writeText(data.url)
+                            .then(() => alert('Ссылка скопирована!'))
+                            .catch(err => alert('Не удалось скопировать ссылку'));
+                    } else {
+                        alert('Ошибка: ' + (data.error || 'неизвестная ошибка'));
+                    }
+                })
+                .catch(err => alert('Ошибка запроса'));
+        });
+    });
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='lastSatatic.css') }}">
+</head>
+
+<body>
+    <header class="header">
+        <div>
+            <h1>
+                Result
+            </h1>
+        </div>
+        
+        <div class="update-card">
+            <a class="fas fa-arrow-right-from-bracket" href="/exitProgram"> Закрыть</a>
+        </div>
+    </header>
+
+    <div class="main-card">
+        <h2>Результат</h2>
+        <div class="question-card">
+            <h1>Правильно ответили на: {{ count_true }} | {{ count_question }} вопросов</h1>
+        </div>
+        <h1> {{ result_text }}</h1>
+        {% if resultImage %}
+        <img src="{{ url_for('static', filename='images/' + resultImage) }}"
+             alt="result"
+             class="result-image"
+             width="700" height="600">
+        {% else %}
+        <h1>Надо учиться лучше</h1>
+        {% endif %}
+    </div>
+</body>
+</html>

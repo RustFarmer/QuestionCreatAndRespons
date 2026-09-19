@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AdminPageCreateQuestionList</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="header">
+    <div>
+        <h1>
+            <a class="header-text" href="/">Create Question</a>
+        </h1>
+    </div>
+</header>
+
+<div class="main-card-create-question">
+    <h2>Создание вопроса</h2>
+    <form method="post" class="input-text">
+
+        <div class="question-name">
+            <label for="question">Введите вопрос:</label>
+            <input type="text" id="question" name="question" required placeholder="Кто такой Кант?">
+        </div>
+
+        <div class="answers-block">
+            <label>Ответы:</label>
+            <div id="answers-container">
+                {% if item and item.answers %}
+                    {% for answer in item.answers %}
+                        <div class="answer-row">
+                            <input type="text" name="answers[]" value="{{ answer }}" required placeholder="Введите ответ">
+                            <button type="button" class="btn-small btn-remove-answer" onclick="removeAnswerRow(this, 'answers-container', 'answer-row')">✕</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="answer-row">
+                        <input type="text" name="answers[]" required placeholder="Введите ответ">
+                        <button type="button" class="btn-small btn-remove-answer" onclick="removeAnswerRow(this, 'answers-container', 'answer-row')">✕</button>
+                    </div>
+                {% endif %}
+            </div>
+            <button type="button" class="btn-small btn-add-answer" onclick="addAnswerRow('answers-container', 'answer-row')">+ Добавить ответ</button>
+        </div>
+
+        <div class="answers-block">
+            <label>Правильные ответы:</label>
+            <div id="answers-container-true">
+                {% if item and item.right_answers %}
+                    {% for answer in item.right_answers %}
+                        <div class="answer-row-true">
+                            <input type="text" name="answers_true[]" value="{{ answer }}" required placeholder="Введите правильный ответ">
+                            <button type="button" class="btn-small btn-remove-answer" onclick="removeAnswerRow(this, 'answers-container-true', 'answer-row-true')">✕</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="answer-row-true">
+                        <input type="text" name="answers_true[]" required placeholder="Введите правильный ответ">
+                        <button type="button" class="btn-small btn-remove-answer" onclick="removeAnswerRow(this, 'answers-container-true', 'answer-row-true')">✕</button>
+                    </div>
+                {% endif %}
+            </div>
+            <button type="button" class="btn-small btn-add-answer" onclick="addAnswerRow('answers-container-true', 'answer-row-true')">+ Добавить правильный ответ</button>
+        </div>
+
+        <div style="margin-top: 24px;">
+            <button type="submit" class="btn-save">💾 Сохранить</button>
+            <a href="{{ url_for('index') }}" class="btn-cancel">Отмена</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function addAnswerRow(containerId, rowClass) {
+        const container = document.getElementById(containerId);
+        const row = document.createElement('div');
+        row.className = rowClass;
+
+        let inputName, placeholder;
+        if (rowClass === 'answer-row') {
+            inputName = 'answers[]';
+            placeholder = 'Введите ответ';
+        } else {
+            inputName = 'answers_true[]';
+            placeholder = 'Введите правильный ответ';
+        }
+
+        row.innerHTML = `
+            <input type="text" name="${inputName}" required placeholder="${placeholder}">
+            <button type="button" class="btn-small btn-remove-answer"
+                    onclick="removeAnswerRow(this, '${containerId}', '${rowClass}')">✕</button>
+        `;
+        container.appendChild(row);
+    }
+
+    function removeAnswerRow(button, containerId, rowClass) {
+        const container = document.getElementById(containerId);
+        const rows = container.getElementsByClassName(rowClass);
+
+        if (rows.length > 1) {
+            button.parentElement.remove();
+        } else {
+            alert('Должен остаться хотя бы один ответ');
+        }
+    }
+</script>
+</body>
+</html>

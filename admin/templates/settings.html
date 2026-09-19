@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+</head>
+
+<header class="header">
+    <div>
+        <h1>
+            <a class="header-text" href="/">Settings</a>
+        </h1>
+    </div>
+</header>
+<body>
+
+    <div class="settings-card">
+        {% if setting %}
+            {% for item in setting %}
+                <div class="settings">
+                    <div class="settings-name"><h1>{{ item.name }}: {{ item.value }}</h1></div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-items">Создайте первый вопрос!</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

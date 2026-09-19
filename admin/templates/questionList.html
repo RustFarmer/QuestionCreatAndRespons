@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>AdminPageCreateQuestionList</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleQuestion_list.css') }}">
+
+</head>
+
+<body>
+<header class="header">
+    <div>
+        <h1>
+            <a class="header-text" href="/">Question List</a>
+        </h1>
+    </div>
+</header>
+
+
+<div class="main-card">
+    <div class="question-card">
+        <h2>Список вопросов</h2>
+        {% if items %}
+            {% for item in items %}
+                <div class="question-list">
+                    <div class="question-list-name">
+                        <div class="deleteList">
+                            <div class="deleteButtonList">
+                                <a href="/del_qst_list/{{ item.Qst_list.id }}">Удалить лист</a>
+                            </div>
+                        </div>
+                        <h2>Бланк №{{ item.Qst_list.id }}: {{ item.Qst_list.show_name }}</h2>
+                        <div class="download-button">
+                            <div class="download-emoji">
+                                <a href="/changeBlancQuestion/{{ item.Qst_list.id }}">
+                                    📑
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-items">Создайте первый лист!</p>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>

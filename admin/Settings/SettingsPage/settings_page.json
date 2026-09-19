@@ -1,0 +1,11 @@
+
+[
+    {
+        "name": "version",
+        "value": 2.1
+    },
+    {
+        "name": "url for update",
+        "value": "https://github.com/RustFarmer/Test/blob/main/update_url_file.json"
+    }
+]

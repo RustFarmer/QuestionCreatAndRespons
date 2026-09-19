@@ -1,0 +1,250 @@
+2026-09-19 at 18:08:51 | INFO | W:\program\QuestionCreatAndRespons\admin\Log\appFileLog.log
+2026-09-19 at 18:08:51 | INFO | W:\program\QuestionCreatAndRespons\admin
+2026-09-19 at 18:08:51 | INFO | W:\program\QuestionCreatAndRespons\client
+2026-09-19 at 18:08:51 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:08:51 | INFO | <class 'pathlib.WindowsPath'>
+2026-09-19 at 18:08:51 | INFO | W:\program\QuestionCreatAndRespons\admin
+2026-09-19 at 18:08:51 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:08:51 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:08:51 | INFO | W:\program\QuestionCreatAndRespons\admin\Cookie\local_cookie.json
+2026-09-19 at 18:08:51 | INFO | \Cookie\local_cookie.json
+2026-09-19 at 18:08:51 | INFO | {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}
+2026-09-19 at 18:08:51 | INFO | W:\program\QuestionCreatAndRespons\admin\question.json
+2026-09-19 at 18:08:51 | INFO | \question.json
+2026-09-19 at 18:08:51 | INFO | {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}
+2026-09-19 at 18:08:51 | INFO | W:\program\QuestionCreatAndRespons\admin\static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:08:51 | INFO | W:\program\QuestionCreatAndRespons\client\static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:08:51 | INFO | \static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:08:51 | INFO | {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}
+2026-09-19 at 18:08:51 | INFO | W:\program\QuestionCreatAndRespons\admin\Settings\SettingsPage\settings_page.json
+2026-09-19 at 18:08:51 | INFO | \Settings\SettingsPage\settings_page.json
+2026-09-19 at 18:08:51 | INFO | {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}
+2026-09-19 at 18:08:51 | INFO | W:\program\QuestionCreatAndRespons\admin\Settings\UpdateProgram\UpdateData\update_url_file.json
+2026-09-19 at 18:08:51 | INFO | \Settings\UpdateProgram\UpdateData\update_url_file.json
+2026-09-19 at 18:08:51 | INFO | {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}
+2026-09-19 at 18:08:51 | INFO | W:\program\QuestionCreatAndRespons\admin\static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:08:51 | INFO | W:\program\QuestionCreatAndRespons\client\static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:08:51 | INFO | \static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:08:51 | INFO | {'client_flag': True, 'Body': []}
+2026-09-19 at 18:08:51 | INFO | W:\program\QuestionCreatAndRespons\admin\PassCutOff\settings.json
+2026-09-19 at 18:08:51 | INFO | \PassCutOff\settings.json
+2026-09-19 at 18:08:51 | INFO | {'Body': []}
+2026-09-19 at 18:08:51 | INFO | W:\program\QuestionCreatAndRespons\admin\ImageResultScreen\imageSettings.json
+2026-09-19 at 18:08:51 | INFO | \ImageResultScreen\imageSettings.json
+2026-09-19 at 18:08:51 | INFO | {'Body': []}
+2026-09-19 at 18:08:51 | INFO | W:\program\QuestionCreatAndRespons\admin\ListBlancQuestion\listBlancQuestion.json
+2026-09-19 at 18:08:51 | INFO | \ListBlancQuestion\listBlancQuestion.json
+2026-09-19 at 18:08:51 | INFO | {'Body': []}
+2026-09-19 at 18:08:52 | INFO | Time to re-check for updates.
+2026-09-19 at 18:08:54 | INFO | <Response [200]>
+2026-09-19 at 18:08:55 | INFO | https://raw.githubusercontent.com/RustFarmer/Test/main/settingsProgram.json
+2026-09-19 at 18:08:55 | INFO | W:\program\QuestionCreatAndRespons\admin\Settings\UpdateProgram\UpdateData\settingsProgram.json
+2026-09-19 at 18:08:55 | INFO | 2.2
+2026-09-19 at 18:08:55 | INFO | <Response [200]>
+2026-09-19 at 18:08:55 | INFO | 2.3
+2026-09-19 at 18:08:55 | INFO | 2.2
+2026-09-19 at 18:08:55 | INFO | True
+2026-09-19 at 18:08:55 | INFO | Session saved: {'time_check_updates': '18:08 19.09.26', 'value_Check': False}
+2026-09-19 at 18:08:55 | INFO | False
+2026-09-19 at 18:08:55 | INFO | None
+2026-09-19 at 18:08:55 | INFO | [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]
+2026-09-19 at 18:10:46 | INFO | W:\program\QuestionCreatAndRespons\admin\Log\appFileLog.log
+2026-09-19 at 18:10:46 | INFO | W:\program\QuestionCreatAndRespons\admin
+2026-09-19 at 18:10:46 | INFO | W:\program\QuestionCreatAndRespons\client
+2026-09-19 at 18:10:46 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:10:46 | INFO | <class 'pathlib.WindowsPath'>
+2026-09-19 at 18:10:46 | INFO | W:\program\QuestionCreatAndRespons\admin
+2026-09-19 at 18:10:46 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:10:46 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:10:46 | INFO | W:\program\QuestionCreatAndRespons\admin\Cookie\local_cookie.json
+2026-09-19 at 18:10:46 | INFO | \Cookie\local_cookie.json
+2026-09-19 at 18:10:46 | INFO | {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}
+2026-09-19 at 18:10:46 | INFO | W:\program\QuestionCreatAndRespons\admin\question.json
+2026-09-19 at 18:10:46 | INFO | \question.json
+2026-09-19 at 18:10:46 | INFO | {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}
+2026-09-19 at 18:10:46 | INFO | W:\program\QuestionCreatAndRespons\admin\static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:10:46 | INFO | W:\program\QuestionCreatAndRespons\client\static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:10:46 | INFO | \static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:10:46 | INFO | {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}
+2026-09-19 at 18:10:46 | INFO | W:\program\QuestionCreatAndRespons\admin\Settings\SettingsPage\settings_page.json
+2026-09-19 at 18:10:46 | INFO | \Settings\SettingsPage\settings_page.json
+2026-09-19 at 18:10:46 | INFO | {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}
+2026-09-19 at 18:10:46 | INFO | W:\program\QuestionCreatAndRespons\admin\Settings\UpdateProgram\UpdateData\update_url_file.json
+2026-09-19 at 18:10:46 | INFO | \Settings\UpdateProgram\UpdateData\update_url_file.json
+2026-09-19 at 18:10:46 | INFO | {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}
+2026-09-19 at 18:10:46 | INFO | W:\program\QuestionCreatAndRespons\admin\static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:10:46 | INFO | W:\program\QuestionCreatAndRespons\client\static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:10:46 | INFO | \static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:10:46 | INFO | {'client_flag': True, 'Body': []}
+2026-09-19 at 18:10:46 | INFO | W:\program\QuestionCreatAndRespons\admin\PassCutOff\settings.json
+2026-09-19 at 18:10:46 | INFO | \PassCutOff\settings.json
+2026-09-19 at 18:10:46 | INFO | {'Body': []}
+2026-09-19 at 18:10:46 | INFO | W:\program\QuestionCreatAndRespons\admin\ImageResultScreen\imageSettings.json
+2026-09-19 at 18:10:46 | INFO | \ImageResultScreen\imageSettings.json
+2026-09-19 at 18:10:46 | INFO | {'Body': []}
+2026-09-19 at 18:10:46 | INFO | W:\program\QuestionCreatAndRespons\admin\ListBlancQuestion\listBlancQuestion.json
+2026-09-19 at 18:10:46 | INFO | \ListBlancQuestion\listBlancQuestion.json
+2026-09-19 at 18:10:46 | INFO | {'Body': []}
+2026-09-19 at 18:10:48 | INFO | False
+2026-09-19 at 18:10:48 | INFO | None
+2026-09-19 at 18:10:48 | INFO | [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]
+2026-09-19 at 18:11:22 | INFO | W:\program\QuestionCreatAndRespons\admin\Log\appFileLog.log
+2026-09-19 at 18:11:22 | INFO | W:\program\QuestionCreatAndRespons\admin
+2026-09-19 at 18:11:22 | INFO | W:\program\QuestionCreatAndRespons\client
+2026-09-19 at 18:11:22 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:11:22 | INFO | <class 'pathlib.WindowsPath'>
+2026-09-19 at 18:11:22 | INFO | W:\program\QuestionCreatAndRespons\admin
+2026-09-19 at 18:11:22 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:11:22 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:11:22 | INFO | W:\program\QuestionCreatAndRespons\admin\Cookie\local_cookie.json
+2026-09-19 at 18:11:22 | INFO | \Cookie\local_cookie.json
+2026-09-19 at 18:11:22 | INFO | {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}
+2026-09-19 at 18:11:22 | INFO | W:\program\QuestionCreatAndRespons\admin\question.json
+2026-09-19 at 18:11:22 | INFO | \question.json
+2026-09-19 at 18:11:22 | INFO | {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}
+2026-09-19 at 18:11:22 | INFO | W:\program\QuestionCreatAndRespons\admin\static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:11:22 | INFO | W:\program\QuestionCreatAndRespons\client\static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:11:22 | INFO | \static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:11:22 | INFO | {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}
+2026-09-19 at 18:11:22 | INFO | W:\program\QuestionCreatAndRespons\admin\Settings\SettingsPage\settings_page.json
+2026-09-19 at 18:11:22 | INFO | \Settings\SettingsPage\settings_page.json
+2026-09-19 at 18:11:22 | INFO | {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}
+2026-09-19 at 18:11:22 | INFO | W:\program\QuestionCreatAndRespons\admin\Settings\UpdateProgram\UpdateData\update_url_file.json
+2026-09-19 at 18:11:22 | INFO | \Settings\UpdateProgram\UpdateData\update_url_file.json
+2026-09-19 at 18:11:22 | INFO | {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}
+2026-09-19 at 18:11:22 | INFO | W:\program\QuestionCreatAndRespons\admin\static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:11:22 | INFO | W:\program\QuestionCreatAndRespons\client\static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:11:22 | INFO | \static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:11:22 | INFO | {'client_flag': True, 'Body': []}
+2026-09-19 at 18:11:22 | INFO | W:\program\QuestionCreatAndRespons\admin\PassCutOff\settings.json
+2026-09-19 at 18:11:22 | INFO | \PassCutOff\settings.json
+2026-09-19 at 18:11:22 | INFO | {'Body': []}
+2026-09-19 at 18:11:22 | INFO | W:\program\QuestionCreatAndRespons\admin\ImageResultScreen\imageSettings.json
+2026-09-19 at 18:11:22 | INFO | \ImageResultScreen\imageSettings.json
+2026-09-19 at 18:11:22 | INFO | {'Body': []}
+2026-09-19 at 18:11:22 | INFO | W:\program\QuestionCreatAndRespons\admin\ListBlancQuestion\listBlancQuestion.json
+2026-09-19 at 18:11:22 | INFO | \ListBlancQuestion\listBlancQuestion.json
+2026-09-19 at 18:11:22 | INFO | {'Body': []}
+2026-09-19 at 18:11:23 | INFO | False
+2026-09-19 at 18:11:23 | INFO | None
+2026-09-19 at 18:11:23 | INFO | [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]
+2026-09-19 at 18:13:32 | INFO | W:\program\QuestionCreatAndRespons\admin\Log\appFileLog.log
+2026-09-19 at 18:13:32 | INFO | W:\program\QuestionCreatAndRespons\admin
+2026-09-19 at 18:13:32 | INFO | W:\program\QuestionCreatAndRespons\client
+2026-09-19 at 18:13:32 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:13:32 | INFO | <class 'pathlib.WindowsPath'>
+2026-09-19 at 18:13:32 | INFO | W:\program\QuestionCreatAndRespons\admin
+2026-09-19 at 18:13:32 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:13:32 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:13:32 | INFO | W:\program\QuestionCreatAndRespons\admin\Cookie\local_cookie.json
+2026-09-19 at 18:13:32 | INFO | \Cookie\local_cookie.json
+2026-09-19 at 18:13:32 | INFO | {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}
+2026-09-19 at 18:13:32 | INFO | W:\program\QuestionCreatAndRespons\admin\question.json
+2026-09-19 at 18:13:32 | INFO | \question.json
+2026-09-19 at 18:13:32 | INFO | {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}
+2026-09-19 at 18:13:32 | INFO | W:\program\QuestionCreatAndRespons\admin\static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:13:32 | INFO | W:\program\QuestionCreatAndRespons\client\static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:13:32 | INFO | \static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:13:32 | INFO | {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}
+2026-09-19 at 18:13:32 | INFO | W:\program\QuestionCreatAndRespons\admin\Settings\SettingsPage\settings_page.json
+2026-09-19 at 18:13:32 | INFO | \Settings\SettingsPage\settings_page.json
+2026-09-19 at 18:13:32 | INFO | {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}
+2026-09-19 at 18:13:32 | INFO | W:\program\QuestionCreatAndRespons\admin\Settings\UpdateProgram\UpdateData\update_url_file.json
+2026-09-19 at 18:13:32 | INFO | \Settings\UpdateProgram\UpdateData\update_url_file.json
+2026-09-19 at 18:13:32 | INFO | {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}
+2026-09-19 at 18:13:32 | INFO | W:\program\QuestionCreatAndRespons\admin\static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:13:32 | INFO | W:\program\QuestionCreatAndRespons\client\static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:13:32 | INFO | \static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:13:32 | INFO | {'client_flag': True, 'Body': []}
+2026-09-19 at 18:13:32 | INFO | W:\program\QuestionCreatAndRespons\admin\PassCutOff\settings.json
+2026-09-19 at 18:13:32 | INFO | \PassCutOff\settings.json
+2026-09-19 at 18:13:32 | INFO | {'Body': []}
+2026-09-19 at 18:13:32 | INFO | W:\program\QuestionCreatAndRespons\admin\ImageResultScreen\imageSettings.json
+2026-09-19 at 18:13:32 | INFO | \ImageResultScreen\imageSettings.json
+2026-09-19 at 18:13:32 | INFO | {'Body': []}
+2026-09-19 at 18:13:32 | INFO | W:\program\QuestionCreatAndRespons\admin\ListBlancQuestion\listBlancQuestion.json
+2026-09-19 at 18:13:32 | INFO | \ListBlancQuestion\listBlancQuestion.json
+2026-09-19 at 18:13:32 | INFO | {'Body': []}
+2026-09-19 at 18:13:33 | INFO | False
+2026-09-19 at 18:13:33 | INFO | None
+2026-09-19 at 18:13:33 | INFO | [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]
+2026-09-19 at 18:17:32 | INFO | W:\program\QuestionCreatAndRespons\admin\Log\appFileLog.log
+2026-09-19 at 18:17:32 | INFO | W:\program\QuestionCreatAndRespons\admin
+2026-09-19 at 18:17:32 | INFO | W:\program\QuestionCreatAndRespons\client
+2026-09-19 at 18:17:32 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:17:32 | INFO | <class 'pathlib.WindowsPath'>
+2026-09-19 at 18:17:32 | INFO | W:\program\QuestionCreatAndRespons\admin
+2026-09-19 at 18:17:32 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:17:32 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:17:32 | INFO | W:\program\QuestionCreatAndRespons\admin\Cookie\local_cookie.json
+2026-09-19 at 18:17:32 | INFO | \Cookie\local_cookie.json
+2026-09-19 at 18:17:32 | INFO | {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}
+2026-09-19 at 18:17:32 | INFO | W:\program\QuestionCreatAndRespons\admin\question.json
+2026-09-19 at 18:17:32 | INFO | \question.json
+2026-09-19 at 18:17:32 | INFO | {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}
+2026-09-19 at 18:17:32 | INFO | W:\program\QuestionCreatAndRespons\admin\static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:17:32 | INFO | W:\program\QuestionCreatAndRespons\client\static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:17:32 | INFO | \static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:17:32 | INFO | {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}
+2026-09-19 at 18:17:32 | INFO | W:\program\QuestionCreatAndRespons\admin\Settings\SettingsPage\settings_page.json
+2026-09-19 at 18:17:32 | INFO | \Settings\SettingsPage\settings_page.json
+2026-09-19 at 18:17:32 | INFO | {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}
+2026-09-19 at 18:17:32 | INFO | W:\program\QuestionCreatAndRespons\admin\Settings\UpdateProgram\UpdateData\update_url_file.json
+2026-09-19 at 18:17:32 | INFO | \Settings\UpdateProgram\UpdateData\update_url_file.json
+2026-09-19 at 18:17:32 | INFO | {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}
+2026-09-19 at 18:17:32 | INFO | W:\program\QuestionCreatAndRespons\admin\static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:17:32 | INFO | W:\program\QuestionCreatAndRespons\client\static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:17:32 | INFO | \static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:17:32 | INFO | {'client_flag': True, 'Body': []}
+2026-09-19 at 18:17:32 | INFO | W:\program\QuestionCreatAndRespons\admin\PassCutOff\settings.json
+2026-09-19 at 18:17:32 | INFO | \PassCutOff\settings.json
+2026-09-19 at 18:17:32 | INFO | {'Body': []}
+2026-09-19 at 18:17:32 | INFO | W:\program\QuestionCreatAndRespons\admin\ImageResultScreen\imageSettings.json
+2026-09-19 at 18:17:32 | INFO | \ImageResultScreen\imageSettings.json
+2026-09-19 at 18:17:32 | INFO | {'Body': []}
+2026-09-19 at 18:17:32 | INFO | W:\program\QuestionCreatAndRespons\admin\ListBlancQuestion\listBlancQuestion.json
+2026-09-19 at 18:17:32 | INFO | \ListBlancQuestion\listBlancQuestion.json
+2026-09-19 at 18:17:32 | INFO | {'Body': []}
+2026-09-19 at 18:17:34 | INFO | False
+2026-09-19 at 18:17:34 | INFO | None
+2026-09-19 at 18:17:34 | INFO | [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]
+2026-09-19 at 18:17:57 | INFO | W:\program\QuestionCreatAndRespons\admin\Log\appFileLog.log
+2026-09-19 at 18:17:57 | INFO | W:\program\QuestionCreatAndRespons\admin
+2026-09-19 at 18:17:57 | INFO | W:\program\QuestionCreatAndRespons\client
+2026-09-19 at 18:17:57 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:17:57 | INFO | <class 'pathlib.WindowsPath'>
+2026-09-19 at 18:17:57 | INFO | W:\program\QuestionCreatAndRespons\admin
+2026-09-19 at 18:17:57 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:17:57 | INFO | {'\\Cookie\\local_cookie.json': {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}, '\\question.json': {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\question.json': {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}, '\\Settings\\SettingsPage\\settings_page.json': {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}, '\\Settings\\UpdateProgram\\UpdateData\\update_url_file.json': {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}, '\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json': {'client_flag': True, 'Body': []}, '\\PassCutOff\\settings.json': {'Body': []}, '\\ImageResultScreen\\imageSettings.json': {'Body': []}, '\\ListBlancQuestion\\listBlancQuestion.json': {'Body': []}}
+2026-09-19 at 18:17:57 | INFO | W:\program\QuestionCreatAndRespons\admin\Cookie\local_cookie.json
+2026-09-19 at 18:17:57 | INFO | \Cookie\local_cookie.json
+2026-09-19 at 18:17:57 | INFO | {'Body': {'time_check_updates': '17:22 22.08.26', 'value_Check': False}}
+2026-09-19 at 18:17:57 | INFO | W:\program\QuestionCreatAndRespons\admin\question.json
+2026-09-19 at 18:17:57 | INFO | \question.json
+2026-09-19 at 18:17:57 | INFO | {'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}
+2026-09-19 at 18:17:57 | INFO | W:\program\QuestionCreatAndRespons\admin\static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:17:57 | INFO | W:\program\QuestionCreatAndRespons\client\static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:17:57 | INFO | \static\GetClientData\UploadInServerClientCookie\ClientCookieData\question.json
+2026-09-19 at 18:17:57 | INFO | {'client_flag': True, 'Body': [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бухгалтер ', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]}
+2026-09-19 at 18:17:57 | INFO | W:\program\QuestionCreatAndRespons\admin\Settings\SettingsPage\settings_page.json
+2026-09-19 at 18:17:57 | INFO | \Settings\SettingsPage\settings_page.json
+2026-09-19 at 18:17:57 | INFO | {'Body': [{'name': 'version', 'value': 2.1}, {'name': 'url for update', 'value': 'https://github.com/RustFarmer/Test/blob/main/update_url_file.json'}]}
+2026-09-19 at 18:17:57 | INFO | W:\program\QuestionCreatAndRespons\admin\Settings\UpdateProgram\UpdateData\update_url_file.json
+2026-09-19 at 18:17:57 | INFO | \Settings\UpdateProgram\UpdateData\update_url_file.json
+2026-09-19 at 18:17:57 | INFO | {'Body': {'rarFile': 'https://github.com/RustFarmer/Rust-helper/raw/refs/heads/main/v5.1.rar'}}
+2026-09-19 at 18:17:57 | INFO | W:\program\QuestionCreatAndRespons\admin\static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:17:57 | INFO | W:\program\QuestionCreatAndRespons\client\static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:17:57 | INFO | \static\GetClientData\UploadInServerClientCookie\ClientCookieData\settings.json
+2026-09-19 at 18:17:57 | INFO | {'client_flag': True, 'Body': []}
+2026-09-19 at 18:17:57 | INFO | W:\program\QuestionCreatAndRespons\admin\PassCutOff\settings.json
+2026-09-19 at 18:17:57 | INFO | \PassCutOff\settings.json
+2026-09-19 at 18:17:57 | INFO | {'Body': []}
+2026-09-19 at 18:17:57 | INFO | W:\program\QuestionCreatAndRespons\admin\ImageResultScreen\imageSettings.json
+2026-09-19 at 18:17:57 | INFO | \ImageResultScreen\imageSettings.json
+2026-09-19 at 18:17:57 | INFO | {'Body': []}
+2026-09-19 at 18:17:57 | INFO | W:\program\QuestionCreatAndRespons\admin\ListBlancQuestion\listBlancQuestion.json
+2026-09-19 at 18:17:57 | INFO | \ListBlancQuestion\listBlancQuestion.json
+2026-09-19 at 18:17:57 | INFO | {'Body': []}
+2026-09-19 at 18:17:59 | INFO | False
+2026-09-19 at 18:17:59 | INFO | None
+2026-09-19 at 18:17:59 | INFO | [{'Qst': {'question_name': 'Кто такой Патрин?', 'answer': ['Бугалтер', 'Директор'], 'right_answer': ['Преподаватель'], 'id': 1}}]

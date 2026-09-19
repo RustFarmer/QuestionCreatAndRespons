@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pass cut offf</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='pass_cut_off.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+</head>
+<body>
+    <header class="header">
+        <div>
+            <h1>
+                <a class="header-text" href="/">Проходная отсечка</a>
+            </h1>
+        </div>
+        <div class="clear-btn"><a type="submit" href="/clear-pass-off-file">Очистить все отсечки</a></div>
+    </header>
+    <div class="card">
+        <div class="forms-container" id="formsContainer">
+            <div class="form-item" data-index="0">
+                <button type="button" class="remove-single-btn" title="Удалить эту форму" aria-label="Удалить форму">
+                    <i class="fas fa-times"></i>
+                </button>
+
+                <form method="post" enctype="multipart/form-data" class="input-text">
+                    <div class="percent-text">
+                        <label for="percent-count-0">Введите процент прохождения:</label>
+                        <input
+                        type="text"
+                        name="percent-count"
+                        id="percent-count-0"
+                        required
+                        placeholder="от 0% до 100%"
+                        />
+                    </div>
+                    <div class="upload-block">
+                        <input type="file" name="percent_image" id="percent-image-0" accept="image/*" />
+                        <button type="submit">
+                            <i class="fa fa-file-upload"></i> Отправить на сервер
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="actions-panel">
+            <button type="button" class="btn btn-add" id="addFormBtn">
+                <i class="fas fa-plus-circle"></i> Добавить форму
+            </button>
+            <button type="button" class="btn btn-remove" id="removeFormBtn" disabled>
+                <i class="fas fa-minus-circle"></i> Убрать форму
+            </button>
+            <span class="counter-badge" id="formCounter">1 форма</span>
+        </div>
+    </div>
+    <script>
+        (function() {
+            'use strict';
+
+            const container = document.getElementById('formsContainer');
+            const addBtn = document.getElementById('addFormBtn');
+            const removeBtn = document.getElementById('removeFormBtn');
+            const counter = document.getElementById('formCounter');
+
+            function updateControls() {
+                const items = container.querySelectorAll('.form-item');
+                const count = items.length;
+
+                removeBtn.disabled = (count <= 1);
+
+                const decl = (n) => {
+                    if (n % 10 === 1 && n % 100 !== 11) return 'форма';
+                    if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) return 'формы';
+                    return 'форм';
+                };
+                counter.textContent = `${count} ${decl(count)}`;
+
+                items.forEach((item, idx) => {
+                    item.dataset.index = idx;
+
+                    const form = item.querySelector('form');
+                    const label = form.querySelector('.percent-text label');
+                    const textInput = form.querySelector('.percent-text input[type="text"]');
+                    const fileInput = form.querySelector('.upload-block input[type="file"]');
+                    const submitBtn = form.querySelector('.upload-block button');
+
+                    if (textInput) {
+                        textInput.id = `percent-count-${idx}`;
+                        textInput.setAttribute('aria-label', `Процент прохождения ${idx + 1}`);
+                    }
+                    if (fileInput) {
+                        fileInput.id = `percent-image-${idx}`;
+                        fileInput.setAttribute('aria-label', `Загрузить изображение ${idx + 1}`);
+                    }
+                    if (label) {
+                        label.setAttribute('for', `percent-count-${idx}`);
+                    }
+                    if (submitBtn) {
+                        submitBtn.setAttribute('data-form-idx', idx);
+                    }
+                });
+            }
+
+            function createFormItem() {
+                const firstItem = container.querySelector('.form-item');
+                if (!firstItem) return null;
+
+                const clone = firstItem.cloneNode(true);
+
+                const textInput = clone.querySelector('.percent-text input[type="text"]');
+                if (textInput) textInput.value = '';
+
+                const fileInput = clone.querySelector('.upload-block input[type="file"]');
+                if (fileInput) fileInput.value = '';
+
+                return clone;
+            }
+
+            function addForm() {
+                const newItem = createFormItem();
+                if (!newItem) return;
+                container.appendChild(newItem);
+                updateControls();
+            }
+
+            function removeLastForm() {
+                const items = container.querySelectorAll('.form-item');
+                if (items.length <= 1) return;
+                const last = items[items.length - 1];
+                last.remove();
+                updateControls();
+            }
+
+            function removeSpecificForm(button) {
+                const item = button.closest('.form-item');
+                if (!item) return;
+                const items = container.querySelectorAll('.form-item');
+                if (items.length <= 1) return;
+                item.remove();
+                updateControls();
+            }
+
+            addBtn.addEventListener('click', addForm);
+            removeBtn.addEventListener('click', removeLastForm);
+
+            container.addEventListener('click', function(e) {
+                const target = e.target.closest('.remove-single-btn');
+                if (!target) return;
+                e.preventDefault();
+                removeSpecificForm(target);
+            });
+
+            container.addEventListener('submit', async function(e) {
+                const form = e.target.closest('form');
+                if (!form || !container.contains(form)) return;
+                e.preventDefault();
+
+                const formData = new FormData(form);
+
+                try {
+                    const response = await fetch('/upload-endpoint', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        alert('Картинка успешно загружена!');
+                    } else {
+                        alert('Ошибка при загрузке. Попробуйте ещё раз.');
+                    }
+                } catch (err) {
+                    alert('Ошибка сети: ' + err.message);
+                }
+
+
+            });
+            document.querySelector('.clear-btn a').addEventListener('click', async function(e) {
+                e.preventDefault();
+
+                try {
+                    const response = await fetch('/clear-pass-off-file', {
+                        method: 'POST'
+                    });
+
+                    if (response.ok) {
+                        alert('Все отсечки очищены!');
+                    } else {
+                        alert('Ошибка при очистке. Попробуйте снова.');
+                    }
+                } catch (err) {
+                    alert('Ошибка сети: ' + err.message);
+                }
+            });
+            updateControls();
+
+        })();
+    </script>
+
+</body>
+</html>

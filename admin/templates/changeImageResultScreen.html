@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='changeImageScreen.css') }}">
+    <title>Change Image</title>
+
+</head>
+<body>
+
+    <header class="header">
+    <div>
+        <h1>
+            <a class="header-text" href="/">Create Question List</a>
+        </h1>
+    </div>
+    </header>
+
+    <div class="card">
+
+        <div class="card-header">
+            <div class="icon">
+                <i class="fas fa-image"></i>
+            </div>
+            <h2>
+                Обновить результат
+                <span class="sub">· выберите файл</span>
+            </h2>
+        </div>
+
+        <div class="preview-container" id="previewContainer">
+            <div class="preview-box" id="previewBox">
+                <i class="fas fa-image" id="previewIcon"></i>
+            </div>
+            <div class="preview-info">
+                <div class="file-name" id="previewFileName">Файл не выбран</div>
+                <div class="file-size" id="previewFileSize">—</div>
+            </div>
+        </div>
+        <form action="/UploadImage" method="post" enctype="multipart/form-data" id="uploadForm">
+            <div class="file-upload-wrapper">
+                <input type="file" id="fileInput" name="uploadedFile" accept="image/png, image/jpeg, image/jpg" required />
+                <div class="file-upload-btn" id="fileUploadBtn">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Выберите файл или перетащите сюда</span>
+                </div>
+            </div>
+            <button type="submit" class="btn-submit" id="submitBtn">
+                <i class="fas fa-upload"></i>
+                Загрузить изображение
+            </button>
+            <div class="status-message" id="statusMessage">
+                <i class="fas fa-check-circle"></i>
+                <span id="statusText">Готово</span>
+            </div>
+        </form>
+        <div class="image-container">
+            {% if images %}
+                {% for image in images %}
+                    <div class="image-item">
+                        <div class="use-button">
+                            <a href="/use_image/{{ image.Image.image_id }}">Использовать</a>
+                        </div>
+                        <div class="file-name">
+                            {{ image.Image.image_name }}
+                        </div>
+                        <div class="deleteFinallyImage">
+                            <a class="fas fa-minus-circle" href="/deleteFinallyImageInSave/{{ image.Image.image_id }}"></a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-items">Фотографии еще не загружены</p>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        (function() {
+            const fileInput = document.getElementById('fileInput');
+            const uploadBtn = document.getElementById('fileUploadBtn');
+            const previewBox = document.getElementById('previewBox');
+            const previewIcon = document.getElementById('previewIcon');
+            const previewFileName = document.getElementById('previewFileName');
+            const previewFileSize = document.getElementById('previewFileSize');
+            const submitBtn = document.getElementById('submitBtn');
+            const statusMsg = document.getElementById('statusMessage');
+            const statusText = document.getElementById('statusText');
+            const range = document.getElementById('opacityRange');
+            const rangeValue = document.getElementById('rangeValue');
+
+            function updatePreview() {
+                const files = fileInput.files;
+                if (files && files.length > 0) {
+                    const file = files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewBox.innerHTML = `<img src="${e.target.result}" alt="preview" />`;
+                        previewBox.classList.add('has-image');
+                        previewIcon.style.display = 'none';
+                    };
+                    reader.readAsDataURL(file);
+
+                    previewFileName.textContent = file.name;
+                    const size = (file.size / 1024).toFixed(1);
+                    previewFileSize.textContent = size + ' KB';
+                    uploadBtn.classList.add('has-file');
+                    statusMsg.classList.remove('show', 'success', 'error');
+                } else {
+                    previewBox.innerHTML = `<i class="fas fa-image" id="previewIcon"></i>`;
+                    previewBox.classList.remove('has-image');
+                    previewFileName.textContent = 'Файл не выбран';
+                    previewFileSize.textContent = '—';
+                    uploadBtn.classList.remove('has-file');
+                }
+            }
+
+            fileInput.addEventListener('change', updatePreview);
+
+            ['dragenter', 'dragover'].forEach(evt => {
+                uploadBtn.addEventListener(evt, (e) => {
+                    e.preventDefault();
+                    uploadBtn.classList.add('dragover');
+                });
+            });
+            ['dragleave', 'drop'].forEach(evt => {
+                uploadBtn.addEventListener(evt, (e) => {
+                    e.preventDefault();
+                    uploadBtn.classList.remove('dragover');
+                    if (evt === 'drop') updatePreview();
+                });
+            });
+
+            uploadBtn.addEventListener('click', (e) => {
+                if (e.target === fileInput) return;
+                fileInput.click();
+            });
+
+            const form = document.getElementById('uploadForm');
+            form.addEventListener('submit', function(e) {
+                if (!fileInput.files || fileInput.files.length === 0) {
+                    e.preventDefault();
+                    statusMsg.className = 'status-message show error';
+                    statusText.textContent = 'Пожалуйста, выберите файл.';
+                    return;
+                }
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Загрузка...';
+                statusMsg.className = 'status-message show';
+                statusText.textContent = 'Отправка...';
+                // re-enable after timeout (if page doesn't reload)
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-upload"></i> Загрузить изображение';
+                }, 5000);
+            });
+
+            function updateRange() {
+                const val = range.value;
+                rangeValue.textContent = val + '%';
+                const percent = (val / 100) * 100;
+                range.style.background = `linear-gradient(90deg, #3b82f6 0%, #3b82f6 ${percent}%, rgba(255,255,255,0.08) ${percent}%, rgba(255,255,255,0.08) 100%)`;
+            }
+
+            range.addEventListener('input', updateRange);
+            updateRange();
+
+            fileInput.addEventListener('change', () => {
+                statusMsg.classList.remove('show', 'success', 'error');
+            });
+
+        })();
+    </script>
+
+</body>
+</html>

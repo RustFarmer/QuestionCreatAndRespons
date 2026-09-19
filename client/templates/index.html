@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cloudflare.com">
+
+</head>
+
+<body>
+    <header class="header">
+        <div>
+            <h1>
+                <a class="header-text" href="/">Question List</a>
+            </h1>
+        </div>
+            <a  class="save-button" onclick="checkAndSubmitForm()" >Ответить</a>
+
+        <div class="update-card">
+        <a class="fas fa-arrow-right-from-bracket" href="/exitProgram"> Закрыть</a>
+    </div>
+    </header>
+
+    <div class="main-card">
+        <h2>Список вопросов</h2>
+        <form id="all-answers-form" action="/save/all_answer" method="POST">
+            <div class="question-card">
+                {% if items %}
+                    {% for item in items %}
+                        <div class="question" data-question-id="{{ item.Qst.id }}">
+                            <div class="question-name">Вопрос № {{ item.Qst.id }}: {{ item.Qst.question_name }}</div>
+                            <h3>Ответы</h3>
+                            {% for answer_text in item.Qst.answer %}
+                                <label class="answer-option">
+                                    <input type="radio"
+                                           name="answer_{{ item.Qst.id }}"
+                                           value="{{ answer_text }}"
+                                           required>
+                                    <span class="answer-text">{{ answer_text }}</span>
+                                </label>
+                            {% endfor %}
+                            <div class="error-message" style="display:none; color:red;">
+                                Пожалуйста, выберите ответ на этот вопрос.
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </form>
+    </div>
+    <div id="header_id"><div id="a_id"></div></div>
+
+    <script>
+        function checkAndSubmitForm() {
+            const questions = document.querySelectorAll('.question');
+            let hasError = false;
+
+            questions.forEach(q => {
+                q.querySelector('.error-message').style.display = 'none';
+            });
+
+            questions.forEach(q => {
+                const questionId = q.getAttribute('data-question-id');
+                const radioGroup = q.querySelectorAll(`input[name="answer_${questionId}"]`);
+                const selected = Array.from(radioGroup).some(r => r.checked);
+
+                if (!selected) {
+                    hasError = true;
+                    q.querySelector('.error-message').style.display = 'block';
+                }
+            });
+
+            if (hasError) {
+                alert('Не на все вопросы даны ответы. Пожалуйста, выберите вариант для каждого вопроса.');
+                return;
+            }
+
+            const confirmed = confirm('Вы уверены, что хотите отправить все ответы? Это действие нельзя отменить.');
+            if (!confirmed) {
+                return;
+            }
+
+            document.getElementById('all-answers-form').submit();
+        }
+    </script>
+</body>
+</html>

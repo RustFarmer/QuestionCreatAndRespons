@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cloudflare.com">
+</head>
+
+<body>
+    <header class="header">
+        <div>
+            <h1>
+                <a class="header-text" href="/">Question List</a>
+            </h1>
+        </div>
+            <a  class="save-button" onclick="checkAndSubmitForm()" >Ответить</a>
+            
+        <div class="update-card">
+            <a class="fas fa-arrow-right-from-bracket" href="/exitProgram"> Закрыть</a>
+        </div>
+    </header>
+
+    <div class="main-card" id="password">
+        <form method="post" class="input-text">
+            <div class="get-password">
+              <label for="password">Введите пароль что бы проходить тест по новой:</label>
+              <input type="text"  name="password" required placeholder="RestartPassword" value="{{ password }}">
+          </div>
+        <div style="margin-top: 24px;">
+            <button type="submit" class="btn-save">💾 Сохранить</button>
+        </div>
+        </form>
+    </div>
+    <div id="header_id"><div id="a_id"></div></div>
+
+</body>
+</html>
