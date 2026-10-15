@@ -1,29 +1,41 @@
 import json
-import subprocess
 from pathlib import Path
 
 from loguru import logger
 
 
 def get_absolute_path() -> Path:
-    return Path(__file__).resolve().parent
+    try:
+        return Path(__file__).resolve().parent
+    except FileNotFoundError:
+        return Path(f'{Path(__file__).resolve().parent}\\_internal')
 
 
-def get_client_path():
+print(get_absolute_path())
+
+
+def get_client_path(flag=True):
     return Path(f'{get_absolute_path().parent}\\client')
+    # else:
+    # return Path(f'{get_absolute_path().parent.parent}\\client\\_internal')
 
 
-logger.add(f"{get_absolute_path()}\\Log\\FirstRunfile.log", format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}")
+logger.add(f"{get_absolute_path()}\\Log\\FirstRunfile.log",
+           format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}")
 
 
 def get_absolute_client_path() -> Path:
     return get_client_path()
 
 
+def get_client_in_all_path() -> Path:
+    return Path(f'{get_absolute_path().parent}\\ResponseInAll')
+
+
 class FirstRun:
     def __init__(self):
         self.file_path_admin = get_absolute_path()
-        self.client_path = get_client_path()
+        self.client_path = get_client_path(True)
         print(self.client_path)
         self.filename_list_dict = {
             "\\Cookie\\local_cookie.json":
@@ -66,7 +78,7 @@ class FirstRun:
                         [
                             {
                                 "name": "version",
-                                "value": 2.1
+                                "value": 2.4
                             },
                             {
                                 "name": "url for update",
@@ -109,7 +121,6 @@ class FirstRun:
         logger.info(get_absolute_path())
 
         logger.info(self.filename_list_dict)
-        logger.info(self.filename_list_dict)
 
         for key, value in self.filename_list_dict.items():
             filepath = f'{self.file_path_admin}{key}'
@@ -118,6 +129,15 @@ class FirstRun:
                 if value.get("client_flag"):
                     filepath = f'{self.client_path}{key}'
                     logger.info(filepath)
+                    try:
+                        with open(filepath, 'r', encoding='utf-8') as f:
+                            logger.info(key)
+                            logger.info(value)
+                    except FileNotFoundError:
+                        filepath = f'{get_client_path(False)}{key}'
+                        with open(filepath, 'r', encoding='utf-8') as f:
+                            logger.info(key)
+                            logger.info(value)
             except KeyError as e:
                 logger.error(e)
             try:

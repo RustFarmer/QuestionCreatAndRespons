@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>Question List</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="https://cloudflare.com">
-
 </head>
 
 <body>
@@ -15,11 +13,11 @@
                 <a class="header-text" href="/">Question List</a>
             </h1>
         </div>
-            <a  class="save-button" onclick="checkAndSubmitForm()" >Ответить</a>
+        <a class="save-button" onclick="checkAndSubmitForm()">Ответить</a>
 
         <div class="update-card">
-        <a class="fas fa-arrow-right-from-bracket" href="/exitProgram"> Закрыть</a>
-    </div>
+            <a class="fas fa-arrow-right-from-bracket" href="/exitProgram"> Закрыть</a>
+        </div>
     </header>
 
     <div class="main-card">
@@ -29,17 +27,50 @@
                 {% if items %}
                     {% for item in items %}
                         <div class="question" data-question-id="{{ item.Qst.id }}">
-                            <div class="question-name">Вопрос № {{ item.Qst.id }}: {{ item.Qst.question_name }}</div>
+                            <div class="question-name">
+                                Вопрос № {{ item.Qst.id }}:
+                                {% if item.Qst.image %}
+                                    <div style="margin-top: 8px;">
+                                        <img src="{{ url_for('uploaded_file', filename=item.Qst.image) }}"
+                                             alt="question image"
+                                             style="max-width: 260px; max-height: 260px;
+                                                    border-radius: 8px;">
+                                    </div>
+                                {% else %}
+                                    {{ item.Qst.question_name }}
+                                {% endif %}
+                            </div>
+
                             <h3>Ответы</h3>
-                            {% for answer_text in item.Qst.answer %}
+                            {% for ans in item.Qst.answer %}
+                                {% if ans is mapping %}
+                                    {% set ans_text  = ans.text %}
+                                    {% set ans_image = ans.image %}
+                                    {% set ans_value = ans.text if ans.text else ans.image %}
+                                {% else %}
+                                    {% set ans_text  = ans %}
+                                    {% set ans_image = None %}
+                                    {% set ans_value = ans %}
+                                {% endif %}
+
                                 <label class="answer-option">
                                     <input type="radio"
                                            name="answer_{{ item.Qst.id }}"
-                                           value="{{ answer_text }}"
+                                           value="{{ ans_value }}"
                                            required>
-                                    <span class="answer-text">{{ answer_text }}</span>
+
+                                    {% if ans_image %}
+                                        <img src="{{ url_for('uploaded_file', filename=ans_image) }}"
+                                             alt="answer image"
+                                             style="max-width: 140px; max-height: 140px;
+                                                    border-radius: 6px; vertical-align: middle;
+                                                    margin-left: 8px;">
+                                    {% else %}
+                                        <span class="answer-text">{{ ans_text }}</span>
+                                    {% endif %}
                                 </label>
                             {% endfor %}
+
                             <div class="error-message" style="display:none; color:red;">
                                 Пожалуйста, выберите ответ на этот вопрос.
                             </div>
@@ -49,6 +80,7 @@
             </div>
         </form>
     </div>
+
     <div id="header_id"><div id="a_id"></div></div>
 
     <script>
@@ -77,9 +109,7 @@
             }
 
             const confirmed = confirm('Вы уверены, что хотите отправить все ответы? Это действие нельзя отменить.');
-            if (!confirmed) {
-                return;
-            }
+            if (!confirmed) return;
 
             document.getElementById('all-answers-form').submit();
         }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>AdminPageCreateQuestionList</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pass_cut_off.css') }}">
 </head>
 <body>
 <header class="header">
@@ -16,51 +17,78 @@
 
 <div class="main-card-create-question">
     <h2>Создание вопроса</h2>
-    <form method="post" class="input-text">
+
+    {% if error %}
+        <div class="error-message" style="color: #c00; margin-bottom: 12px;">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" class="input-text"
+          id="question-form" onsubmit="return validateForm()">
 
         <div class="question-name">
-            <label for="question">Введите вопрос:</label>
-            <input type="text" id="question" name="question" required placeholder="Кто такой Кант?">
+            <label for="question">Вопрос (текст или картинка):</label>
+            <input type="text" id="question" name="question"
+                   placeholder="Кто такой Кант?"
+                   value="{{ item.question_name if item else '' }}">
+            <div class="upload-block" style="margin: 12px 0;">
+                <input type="file" id="question_image" name="question_image"
+                       accept="image/png, image/jpeg, image/jpg">
+                <img id="image-preview"
+                     style="display:none; max-width: 220px; margin-top: 8px; border-radius: 6px;"
+                     alt="preview">
+            </div>
         </div>
 
         <div class="answers-block">
-            <label>Ответы:</label>
+            <label>Ответы (текст или картинка):</label>
             <div id="answers-container">
-                {% if item and item.answers %}
-                    {% for answer in item.answers %}
-                        <div class="answer-row">
-                            <input type="text" name="answers[]" value="{{ answer }}" required placeholder="Введите ответ">
-                            <button type="button" class="btn-small btn-remove-answer" onclick="removeAnswerRow(this, 'answers-container', 'answer-row')">✕</button>
+                <div class="answer-row">
+                    <div class="answer-fields">
+                        <input type="text" name="answers[]"
+                               placeholder="Введите ответ (или прикрепите картинку)">
+                        <div class="upload-block">
+                            <input type="file" name="answer_images[]"
+                                   accept="image/png, image/jpeg, image/jpg"
+                                   onchange="previewAnswerImage(this)">
+                            <img class="answer-preview"
+                                 style="display:none; max-width: 100px; margin-top: 6px; border-radius: 4px;"
+                                 alt="">
                         </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="answer-row">
-                        <input type="text" name="answers[]" required placeholder="Введите ответ">
-                        <button type="button" class="btn-small btn-remove-answer" onclick="removeAnswerRow(this, 'answers-container', 'answer-row')">✕</button>
                     </div>
-                {% endif %}
+                    <button type="button" class="btn-small btn-remove-answer"
+                            onclick="removeAnswerRow(this, 'answers-container', 'answer-row')">✕</button>
+                </div>
             </div>
-            <button type="button" class="btn-small btn-add-answer" onclick="addAnswerRow('answers-container', 'answer-row')">+ Добавить ответ</button>
+            <button type="button" class="btn-small btn-add-answer"
+                    onclick="addAnswerRow('answers-container', 'answer-row')">+ Добавить ответ</button>
         </div>
 
         <div class="answers-block">
-            <label>Правильные ответы:</label>
+            <label>Правильные ответы (текст или картинка):</label>
             <div id="answers-container-true">
-                {% if item and item.right_answers %}
-                    {% for answer in item.right_answers %}
-                        <div class="answer-row-true">
-                            <input type="text" name="answers_true[]" value="{{ answer }}" required placeholder="Введите правильный ответ">
-                            <button type="button" class="btn-small btn-remove-answer" onclick="removeAnswerRow(this, 'answers-container-true', 'answer-row-true')">✕</button>
+                <div class="answer-row-true">
+                    <div class="answer-fields">
+                        <input type="text" name="answers_true[]"
+                               placeholder="Введите правильный ответ (или прикрепите картинку)">
+                        <div class="upload-block">
+                            <input type="file" name="answer_true_images[]"
+                                   accept="image/png, image/jpeg, image/jpg"
+                                   onchange="previewAnswerImage(this)">
+                            <img class="answer-preview"
+                                 style="display:none; max-width: 100px; margin-top: 6px; border-radius: 4px;"
+                                 alt="">
                         </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="answer-row-true">
-                        <input type="text" name="answers_true[]" required placeholder="Введите правильный ответ">
-                        <button type="button" class="btn-small btn-remove-answer" onclick="removeAnswerRow(this, 'answers-container-true', 'answer-row-true')">✕</button>
                     </div>
-                {% endif %}
+                    <button type="button" class="btn-small btn-remove-answer"
+                            onclick="removeAnswerRow(this, 'answers-container-true', 'answer-row-true')">✕</button>
+                </div>
             </div>
-            <button type="button" class="btn-small btn-add-answer" onclick="addAnswerRow('answers-container-true', 'answer-row-true')">+ Добавить правильный ответ</button>
+            <button type="button" class="btn-small btn-add-answer"
+                    onclick="addAnswerRow('answers-container-true', 'answer-row-true')">
+                + Добавить правильный ответ
+            </button>
         </div>
 
         <div style="margin-top: 24px;">
@@ -76,17 +104,25 @@
         const row = document.createElement('div');
         row.className = rowClass;
 
-        let inputName, placeholder;
-        if (rowClass === 'answer-row') {
-            inputName = 'answers[]';
-            placeholder = 'Введите ответ';
-        } else {
-            inputName = 'answers_true[]';
-            placeholder = 'Введите правильный ответ';
-        }
+        const isTrue = rowClass === 'answer-row-true';
+        const inputName = isTrue ? 'answers_true[]' : 'answers[]';
+        const fileInputName = isTrue ? 'answer_true_images[]' : 'answer_images[]';
+        const placeholder = isTrue
+            ? 'Введите правильный ответ (или прикрепите картинку)'
+            : 'Введите ответ (или прикрепите картинку)';
 
         row.innerHTML = `
-            <input type="text" name="${inputName}" required placeholder="${placeholder}">
+            <div class="answer-fields">
+                <input type="text" name="${inputName}" placeholder="${placeholder}">
+                <div class="upload-block">
+                    <input type="file" name="${fileInputName}"
+                           accept="image/png, image/jpeg, image/jpg"
+                           onchange="previewAnswerImage(this)">
+                    <img class="answer-preview"
+                         style="display:none; max-width: 100px; margin-top: 6px; border-radius: 4px;"
+                         alt="">
+                </div>
+            </div>
             <button type="button" class="btn-small btn-remove-answer"
                     onclick="removeAnswerRow(this, '${containerId}', '${rowClass}')">✕</button>
         `;
@@ -96,12 +132,69 @@
     function removeAnswerRow(button, containerId, rowClass) {
         const container = document.getElementById(containerId);
         const rows = container.getElementsByClassName(rowClass);
-
         if (rows.length > 1) {
             button.parentElement.remove();
         } else {
             alert('Должен остаться хотя бы один ответ');
         }
+    }
+
+    function previewAnswerImage(input) {
+        const wrapper = input.closest('.answer-image-wrapper');
+        const img = wrapper.querySelector('.answer-preview');
+        const file = input.files[0];
+        if (file) {
+            img.src = URL.createObjectURL(file);
+            img.style.display = 'block';
+        } else {
+            img.style.display = 'none';
+        }
+    }
+
+    document.getElementById('question_image').addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        const img = document.getElementById('image-preview');
+        if (file) {
+            img.src = URL.createObjectURL(file);
+            img.style.display = 'block';
+        } else {
+            img.style.display = 'none';
+        }
+    });
+
+    function validateForm() {
+        const qText = document.getElementById('question').value.trim();
+        const qFile = document.getElementById('question_image').files[0];
+        if (!qText && !qFile) {
+            alert('Заполните вопрос: текст или картинка');
+            return false;
+        }
+
+        const answerRows = document.querySelectorAll('#answers-container .answer-row');
+        let validAnswers = 0;
+        for (const row of answerRows) {
+            const text = row.querySelector('input[name="answers[]"]').value.trim();
+            const file = row.querySelector('input[name="answer_images[]"]').files[0];
+            if (text || file) validAnswers++;
+        }
+        if (validAnswers === 0) {
+            alert('Добавьте хотя бы один ответ: текст или картинка');
+            return false;
+        }
+
+        const rightRows = document.querySelectorAll('#answers-container-true .answer-row-true');
+        let validRight = 0;
+        for (const row of rightRows) {
+            const text = row.querySelector('input[name="answers_true[]"]').value.trim();
+            const file = row.querySelector('input[name="answer_true_images[]"]').files[0];
+            if (text || file) validRight++;
+        }
+        if (validRight === 0) {
+            alert('Добавьте хотя бы один правильный ответ: текст или картинка');
+            return false;
+        }
+
+        return true;
     }
 </script>
 </body>

@@ -9,7 +9,31 @@
             "right_answer": [
                 "Преподаватель"
             ],
+            "image": null,
             "id": 1
+        }
+    },
+    {
+        "Qst": {
+            "question_name": "Кто такой Официн",
+            "answer": [
+                {
+                    "text": "продавец",
+                    "image": null
+                },
+                {
+                    "text": "касир",
+                    "image": null
+                }
+            ],
+            "right_answer": [
+                {
+                    "text": "преподаватель",
+                    "image": null
+                }
+            ],
+            "image": null,
+            "id": 2
         }
     }
 ]

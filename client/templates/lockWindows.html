@@ -22,15 +22,18 @@
     </header>
 
     <div class="main-card" id="password">
-        <form method="post" class="input-text">
-            <div class="get-password">
-              <label for="password">Введите пароль что бы проходить тест по новой:</label>
-              <input type="text"  name="password" required placeholder="RestartPassword" value="{{ password }}">
-          </div>
-        <div style="margin-top: 24px;">
-            <button type="submit" class="btn-save">💾 Сохранить</button>
+    <form method="post" action="/save/all_answer" class="input-text">
+        {% for q_id, ans in parsed.items() %}
+            <input type="hidden" name="answer_{{ q_id }}" value="{{ ans }}">
+        {% endfor %}
+        <div class="get-password">
+          <label for="password">Введите пароль что бы проходить тест по новой:</label>
+          <input type="text"  name="password" required placeholder="RestartPassword" value="{{ password }}">
         </div>
-        </form>
+        <div class="save-btn-lock-win-card">
+            <button type="submit" class="save-btn-lock-win">💾 Сохранить</button>
+        </div>
+    </form>
     </div>
     <div id="header_id"><div id="a_id"></div></div>
 

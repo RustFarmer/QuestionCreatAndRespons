@@ -3,11 +3,11 @@ import os
 import shutil
 import json
 
-import webview
+# import webview
 
 from dataclasses import dataclass
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory
 from werkzeug.utils import secure_filename
 from pathlib import Path
 from loguru import logger
@@ -48,6 +48,24 @@ app.config['UPLOAD_FOLDER_CLIENT'] = UPLOAD_FOLDER_CLIENT
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg'}
 app.secret_key = os.getenv("oihapgoihopasdfimnposajiSuperSecretCode", "dev-secret-key")
 
+def save_uploaded_file(file):
+    if not file or not file.filename:
+        return None
+    if not allowed_file(file.filename):
+        return None
+    filename = secure_filename(file.filename)
+    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+    os.makedirs(app.config['UPLOAD_FOLDER_CLIENT'], exist_ok=True)
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    file_path_client = os.path.join(app.config['UPLOAD_FOLDER_CLIENT'], filename)
+    file.save(file_path_client)
+    shutil.copy2(file_path_client, file_path)
+    return filename
+
+
+@app.route('/uploads/<path:filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @dataclass
 class HtmlPageName:
@@ -106,10 +124,13 @@ def index():
 
     itemss = items_load()
 
-    if value_check:
-        SaveUrlFile().save_url_file()
-        update_url = getFileUrlForDownload().get_url
-    else:
+    try:
+        if value_check:
+            SaveUrlFile().save_url_file()
+            update_url = getFileUrlForDownload().get_url
+        else:
+            update_url = None
+    except TimeoutError:
         update_url = None
 
     logger.info(value_check)
@@ -122,26 +143,51 @@ def index():
 @app.route('/create_question', methods=['GET', 'POST'])
 def create_question():
     if request.method == 'POST':
-
-        question_list_name = request.form.get('question_list_name', '').strip()
         question = request.form.get('question', '').strip()
-
         answers = request.form.getlist('answers[]')
         answers_true = request.form.getlist('answers_true[]')
 
-        logger.info(question_list_name)
-        logger.info(question)
-        logger.info(answers)
-        logger.info(answers_true)
+        question_image = request.files.get('question_image')
+        answer_images = request.files.getlist('answer_images[]')
+        answer_true_images = request.files.getlist('answer_true_images[]')
 
-        cleaned_answers = [a.strip() for a in answers if a.strip()]
+        question_image_name = save_uploaded_file(question_image)
 
-        if question and cleaned_answers:
-            Question().save_question(question, answers, answers_true)
-            return redirect(url_for(HtmlPageName.index_url))
+        if not question and not question_image_name:
+            return render_template(HtmlPageName.crete, item=None,
+                                   error="Введите вопрос или прикрепите картинку")
 
-        else:
-            return render_template(HtmlPageName.crete, item=None, error="Вопрос и хотя бы один ответ обязательны")
+        answer_objects = []
+        for i, answer_text in enumerate(answers):
+            text = answer_text.strip()
+            img_name = None
+            if i < len(answer_images):
+                img_name = save_uploaded_file(answer_images[i])
+            if not text and not img_name:
+                continue
+            answer_objects.append({"text": text, "image": img_name})
+
+        if not answer_objects:
+            return render_template(HtmlPageName.crete, item=None,
+                                   error="Добавьте хотя бы один ответ — текст или картинку")
+
+        right_objects = []
+        for i, right_text in enumerate(answers_true):
+            text = right_text.strip()
+            img_name = None
+            if i < len(answer_true_images):
+                img_name = save_uploaded_file(answer_true_images[i])
+            if not text and not img_name:
+                continue
+            right_objects.append({"text": text, "image": img_name})
+
+        if not right_objects:
+            return render_template(HtmlPageName.crete, item=None,
+                                   error="Добавьте хотя бы один правильный ответ — текст или картинку")
+
+        Question().save_question(question, answer_objects, right_objects,
+                                 question_image_name)
+        return redirect(url_for(HtmlPageName.index_url))
 
     return render_template(HtmlPageName.crete, item=None)
 
@@ -340,15 +386,24 @@ def allowed_file(filename):
 def pass_cut_off():
     images = PassCutOff().__load_image_data__()
     value = PassCutOff().__load_result_screen_dict__()
-
+    print(images, value)
     if request.method == 'POST':
         percent = request.form.get('percent-count')
         file = request.files.get('percent_image')
         print(percent)
         print(file)
-    return render_template(HtmlPageName.pass_cut_off_html, images=None)
+    return render_template(HtmlPageName.pass_cut_off_html, images=images, values=value)
 
-
+@app.route('/delete_pass_cut/<int:percent>/<image_name>')
+def del_pas_cut_one(percent, image_name):
+        
+    PassCutOff().__delete_one_pass_cut__(percent, image_name)
+    
+    images = PassCutOff().__load_image_data__()
+    value = PassCutOff().__load_result_screen_dict__()
+    
+    return render_template(HtmlPageName.pass_cut_off_html, images=images, values=value)
+    
 @app.route('/upload-endpoint', methods=['POST'])
 def upload_endpoint():
     file = request.files.get('percent_image')
@@ -424,16 +479,18 @@ def set_password():
 def close_program() -> None:
     return windows.destroy()
 
+
 if __name__ == "__main__":
     now = datetime.now()
     current_time = str(now.strftime("%H:%M %d.%m.%y"))
 
     FirstRun().create_json_file()
 
-    windows = webview.create_window('Admin', app, fullscreen=True)
-    webview.start()
-    
+    # windows = webview.create_window('Admin', app, fullscreen=True)
+    # webview.start()
+
     host = "127.0.0.1"
     port = 5001
 
     url = f"http://{host}:{port}"
+    app.run(debug=True)

@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='newStyle.css')}}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cloudflare.com">
 </head>
 <body>
 <header class="header">
@@ -17,9 +16,10 @@
     </div>
     <div class="change-image-result-card">
         <a href="/updateIdQuestion">
-        <div class="change-image-result"><div class="fa fa-id-card"></div>
-            Обновить id вопросов
-        </div>
+            <div class="change-image-result">
+                <div class="fa fa-id-card"></div>
+                Обновить id вопросов
+            </div>
         </a>
     </div>
     <div class="change-image-result-card">
@@ -90,6 +90,7 @@
             <p class="no-items">Необходимо добавить хотя бы 1 вопрос</p>
         {% endif %}
     </form>
+
     <div class="question-card">
         <h2>Список вопросов</h2>
         {% if items %}
@@ -113,20 +114,54 @@
                                 <i class="fa fa-minus-square"></i> Удалить вопрос <i class="fa fa-minus-square"></i></a>
                         </div>
                     </div>
-                    <div class="question-name"><h2>Вопрос №{{ item.Qst.id }}: {{ item.Qst.question_name }}</h2></div>
+
+                    <div class="question-name">
+                        <h2>Вопрос №{{ item.Qst.id }}: {{ item.Qst.question_name }}</h2>
+                    </div>
+
+                    {% if item.Qst.image %}
+                        <div class="question-image" style="margin: 10px 0;">
+                            <img src="{{ url_for('uploaded_file', filename=item.Qst.image) }}"
+                                 alt="question image"
+                                 style="max-width: 260px; max-height: 260px; border-radius: 8px;
+                                        box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+                        </div>
+                    {% endif %}
+
                     <h2>Ответы</h2>
                     {% if item.Qst.answer %}
                         {% for answers in item.Qst.answer %}
                             <div class="question-answer">
-                                <h3>{{ answers }}</h3>
+                                {% if answers is mapping %}
+                                    <h3>{{ answers.text }}</h3>
+                                    {% if answers.image %}
+                                        <img src="{{ url_for('uploaded_file', filename=answers.image) }}"
+                                             alt="answer image"
+                                             style="max-width: 120px; max-height: 120px; border-radius: 6px;
+                                                    margin-top: 6px;">
+                                    {% endif %}
+                                {% else %}
+                                    <h3>{{ answers }}</h3>
+                                {% endif %}
                             </div>
                         {% endfor %}
                     {% endif %}
+
                     <h2>Правильный ответ</h2>
                     {% if item.Qst.right_answer %}
                         {% for right_answers in item.Qst.right_answer %}
                             <div class="question-answer question-answer-true">
-                                <h3> {{ right_answers }} </h3>
+                                {% if right_answers is mapping %}
+                                    <h3>{{ right_answers.text }}</h3>
+                                    {% if right_answers.image %}
+                                        <img src="{{ url_for('uploaded_file', filename=right_answers.image) }}"
+                                             alt="right answer image"
+                                             style="max-width: 120px; max-height: 120px; border-radius: 6px;
+                                                    margin-top: 6px;">
+                                    {% endif %}
+                                {% else %}
+                                    <h3>{{ right_answers }}</h3>
+                                {% endif %}
                             </div>
                         {% endfor %}
                     {% endif %}
@@ -136,30 +171,32 @@
             <p class="no-items">Создайте первый вопрос!</p>
         {% endif %}
     </div>
-<script>
-    document.getElementById('toggleUploadBtn').addEventListener('click', function () {
-        const container = document.getElementById('uploadFormContainer');
-        container.style.display = (container.style.display === 'none' || container.style.display === '') ? 'block' : 'none';
-    });
 
-    document.querySelectorAll('.share_question_card').forEach(btn => {
-        btn.addEventListener('click', function () {
-            const questionId = this.dataset.id;
-            fetch(`/api/share/${questionId}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.url) {
-                        navigator.clipboard.writeText(data.url)
-                            .then(() => alert('Ссылка скопирована!'))
-                            .catch(err => alert('Не удалось скопировать ссылку'));
-                    } else {
-                        alert('Ошибка: ' + (data.error || 'неизвестная ошибка'));
-                    }
-                })
-                .catch(err => alert('Ошибка запроса'));
+    <script>
+        document.getElementById('toggleUploadBtn').addEventListener('click', function () {
+            const container = document.getElementById('uploadFormContainer');
+            container.style.display = (container.style.display === 'none' || container.style.display === '')
+                ? 'block' : 'none';
         });
-    });
-</script>
+
+        document.querySelectorAll('.share_question_card').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const questionId = this.dataset.id;
+                fetch(`/api/share/${questionId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.url) {
+                            navigator.clipboard.writeText(data.url)
+                                .then(() => alert('Ссылка скопирована!'))
+                                .catch(err => alert('Не удалось скопировать ссылку'));
+                        } else {
+                            alert('Ошибка: ' + (data.error || 'неизвестная ошибка'));
+                        }
+                    })
+                    .catch(err => alert('Ошибка запроса'));
+            });
+        });
+    </script>
 </div>
 </body>
 </html>

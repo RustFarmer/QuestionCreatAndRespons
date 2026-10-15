@@ -53,6 +53,24 @@
             <span class="counter-badge" id="formCounter">1 форма</span>
         </div>
     </div>
+    <div class="two-card">
+        <h1> Текущие пороги</h1>
+        <div class="two-card-value">
+            {% for value in values %}
+
+                    <div class="two-card-value-percent">
+                        <h3> Проценты: {{ value.ResultScreenClient.percent }} </h3>
+                    </div>
+                <img src="{{ url_for('uploaded_file', filename=value.ResultScreenClient.image) }}"
+                                alt="question image"
+                                class="image-preview-box">
+                    <a href="/delete_pass_cut/{{ value.ResultScreenClient.percent }}/ {{ value.ResultScreenClient.image }}">
+                        <button type="button" class="two-remove-single-btn" title="Удалить эту форму" aria-label="Удалить форму">
+                                <i class="fas fa-times"> Удалить </i>
+                        </button>
+                    </a>
+            {% endfor %}
+    </div>
     <script>
         (function() {
             'use strict';

@@ -72,3 +72,24 @@ class PassCutOff:
         with open(self.filename_settings_client, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
         return True
+
+    def __delete_one_pass_cut__(self, image_name: str, percent: int):
+        try:
+
+            with open(self.filename_settings, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            new_data = [u for u in data if u["ResultScreenClient"]["percent"] == percent and
+                        u["ResultScreenClient"]["image"] == image_name]
+            with open(self.filename_settings, 'w', encoding='utf-8') as f:
+                json.dump(new_data, f, indent=4, ensure_ascii=False)
+            with open(self.filename_settings_client, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            new_data = [u for u in data if u["ResultScreenClient"]["percent"] == percent and
+                        u["ResultScreenClient"]["image"] == image_name]
+            with open(self.filename_settings_client, 'w', encoding='utf-8') as f:
+                json.dump(new_data, f, indent=4, ensure_ascii=False)
+                
+        except FileNotFoundError as e:
+            return e
+        
+        

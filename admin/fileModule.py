@@ -1,7 +1,8 @@
-from firstRun import get_client_path, get_absolute_path
+from firstRun import get_client_path, get_client_in_all_path, get_absolute_path
 
 file_path_admin = get_absolute_path()
 file_path_client = get_client_path()
+file_path_client_all = get_client_in_all_path()
 
 UPLOAD_FOLDER = f'{file_path_admin}\\ImageResultScreen\\Image'
 UPLOAD_FOLDER_CLIENT = f'{file_path_client}\\static\\images\\'
@@ -29,6 +30,10 @@ class FileNameAdmin:
 
     filename_password = f'{file_path_admin}\\Password'
 
+    fillename_QuestionList = f'{file_path_admin}\\ListBlancQuestion\\listBlancQuestion.json'
+
+    filename_list_question_file = f'{file_path_admin}\\ListBlancQuestion\\overListQuestion\\'
+
 
 class FileNameClient:
     filename_CLINET_settings = f"{file_path_client}\\static\\GetClientData\\UploadInServerClientCookie\\ClientCookieData\\settings.json"
@@ -37,3 +42,6 @@ class FileNameClient:
     filename_CLINET_image_settings = f"{file_path_client}\\static\\images"
     image_path_CLIENT = f'{file_path_client}\\static\\images\\'
     filename_CLIENT_password = f'{file_path_client}\\static\\exe\\getClientCookie'
+
+    filename_CLIENT_IN_ALL_question = f"{file_path_client_all}\\question.json"
+    filename_CLIENT_IN_ALL_settings = f"{file_path_client_all}\\settings.json"

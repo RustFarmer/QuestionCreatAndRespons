@@ -10,12 +10,14 @@ file_path_client = get_client_path()
 
 class Question:
     def __init__(self, question_id=1):
+        self.filename_CLIENT_IN_All = FileNameClient.filename_CLIENT_IN_ALL_question
         self.question_dict = None
         self.filename_CLIENT = FileNameClient.filename_CLINET_question
         self.filename = FileNameAdmin.filename_question
         self.right_answer = None
         self.answer = None
         self.name = None
+        self.image_name = None
         if question_id == 1:
             self.id = question_id
             self.check_id_in_input_question()
@@ -28,6 +30,7 @@ class Question:
                 "question_name": self.name,
                 "answer": self.answer,
                 "right_answer": self.right_answer,
+                "image": self.image_name,
                 "id": self.id
             }
         }
@@ -42,28 +45,31 @@ class Question:
                 self.id = self.qs_id()
         return self.id
 
-    def save_question(self, name: str, answer: list[str],
-                      right_answer: list[str] | str):
+    def save_question(self, name: str, answer: list[str], right_answer,
+                      image_name: str | None = None):
         self.right_answer = right_answer
         self.answer = answer
         self.name = name
+        self.image_name = image_name
         self.question_dict = self.question_dicts()
 
         try:
             with open(self.filename, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-            logger.info(data)
             data = list(data) + [self.question_dict]
+            logger.info(data)
             with open(self.filename, 'w', encoding='utf-8') as f:
                 json.dump(data, f, indent=4, ensure_ascii=False)
 
             with open(self.filename_CLIENT, 'w', encoding='utf-8') as f:
                 json.dump(data, f, indent=4, ensure_ascii=False)
 
+            with open(self.filename_CLIENT_IN_All, 'w', encoding='utf-8') as f:
+                json.dump(data, f, indent=4, ensure_ascii=False)
         except (FileNotFoundError, json.JSONDecodeError):
             data = []
-        with open(self.filename, 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=4)
+            with open(self.filename, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=4)
 
     def delete_qst(self, qst_id):
         try:
@@ -96,7 +102,7 @@ class Question:
 
 
 class QuestionList:
-    def __init__(self, filename='../admin/ListBlancQuestion/listBlancQuestion.json'):
+    def __init__(self, filename=FileNameAdmin.fillename_QuestionList):
         self.show_name = None
         self.save_file_dict = None
         self.question = None
@@ -136,7 +142,7 @@ class QuestionList:
         self.list_name = self.qs_id()
         self.question = question_dict
         self.question_dict = self.question_dicts()
-        self.list_filename = f'../admin/ListBlancQuestion/overListQuestion/{self.list_name}.json'
+        self.list_filename = f'{FileNameAdmin.filename_list_question_file}{self.list_name}.json'
 
         try:
             with open(self.filename, 'r', encoding='utf-8') as f:
@@ -154,7 +160,6 @@ class QuestionList:
             data = []
         with open(self.filename, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
-
 
     def delete_qst(self, qst_id):
         try:
@@ -190,6 +195,7 @@ class ChangeQuestion:
         self.right_answer = None
         self.answer = None
         self.name = None
+        self.image_name = None
 
     def question_dicts(self) -> dict:
         return {
@@ -197,6 +203,7 @@ class ChangeQuestion:
                 "question_name": self.name,
                 "answer": self.answer,
                 "right_answer": self.right_answer,
+                "image": self.image_name,
                 "id": self.id
             }
         }
@@ -208,10 +215,11 @@ class ChangeQuestion:
         with open(self.filename_client, 'w', encoding='utf-8') as f:
             json.dump(file, f, indent=4, ensure_ascii=False)
 
-    def save_question(self, name: str, answer: list[str], right_answer: list[str]):
+    def save_question(self, name: str, answer: list[str], right_answer: list[str], image_name=None):
         self.right_answer = right_answer
         self.answer = answer
         self.name = name
+        self.image_name = image_name
 
         new_question = self.question_dicts()
         logger.info(new_question)
