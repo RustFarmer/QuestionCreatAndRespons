@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="update-card">
+            <a class="fas fa-arrow-left" href="#" onclick="goBack(event);"> Назад</a>
+        </div>
+        <div class="update-card">
+            <a class="fas fa-arrow-right-from-bracket" href="/exitProgram"> Закрыть</a>
+        </div>
+    </header>
+
+    <div class="main-card" id="main-card">
+        <h2>Список вопросов</h2>
+
+        <div id="no-questions-message"
+             style="display:none; margin-top: 20px; font-size: 22px; font-weight: bold;">
+            Вопросы закончились
+        </div>
+
+        <form id="all-answers-form" action="/save/all_answer" method="POST">
+            <div class="question-card" id="question-card">
+                {% if items %}
+                    {% for item in items %}
+                        <div class="question" data-question-id="{{ item.Qst.id }}">
+                            <div class="question-name">
+                                Вопрос № {{ item.Qst.id }}:
+                                {% if item.Qst.image %}
+                                    <div style="margin-top: 8px;">
+                                        <img src="{{ url_for('uploaded_file', filename=item.Qst.image) }}"
+                                             alt="question image"
+                                             style="max-width: 260px; max-height: 260px;
+                                                    border-radius: 8px;">
+                                    </div>
+                                {% else %}
+                                    {{ item.Qst.question_name }}
+                                {% endif %}
+                            </div>
+
+                            <h3>Ответы</h3>
+                            {% for ans in item.Qst.answer %}
+                                {% if ans is mapping %}
+                                    {% set ans_text  = ans.text %}
+                                    {% set ans_image = ans.image %}
+                                    {% set ans_value = ans.text if ans.text else ans.image %}
+                                {% else %}
+                                    {% set ans_text  = ans %}
+                                    {% set ans_image = None %}
+                                    {% set ans_value = ans %}
+                                {% endif %}
+
+                                <label class="answer-option">
+                                    <input type="radio"
+                                           name="answer_{{ item.Qst.id }}"
+                                           value="{{ ans_value }}"
+                                           required>
+
+                                    {% if ans_image %}
+                                        <img src="{{ url_for('uploaded_file', filename=ans_image) }}"
+                                             alt="answer image"
+                                             style="max-width: 140px; max-height: 140px;
+                                                    border-radius: 6px; vertical-align: middle;
+                                                    margin-left: 8px;">
+                                    {% else %}
+                                        <span class="answer-text">{{ ans_text }}</span>
+                                    {% endif %}
+                                </label>
+                            {% endfor %}
+
+                            <div class="check_question_btn" onclick="checkQuestion(this)">Проверить</div>
+
+                            <div class="error-message" style="display:none; color:red;">
+                                Пожалуйста, выберите ответ на этот вопрос.
+                            </div>
+                        </div>
+
+                        <div class="arrow-question">
+                            <div class="last-question">
+                                <a class="fa fa-arrow-left nav-arrow"
+                                   href="/last/{{ item.Qst.id }}"
+                                   data-url="/last/{{ item.Qst.id }}"> </a>
+                            </div>
+                            <div class="next-question">
+                                <a class="fa fa-arrow-right nav-arrow"
+                                   href="/next/{{ item.Qst.id }}"
+                                   data-url="/next/{{ item.Qst.id }}"> </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </form>
+    </div>
+
+    <div id="header_id"><div id="a_id"></div></div>
+
+    <script>
+        function goBack(e) {
+            e.preventDefault();
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }
+
+        function getSelectedAnswer(questionEl) {
+            const id = questionEl.getAttribute('data-question-id');
+            return questionEl.querySelector(`input[name="answer_${id}"]:checked`);
+        }
+
+        function validateAllQuestions() {
+            let ok = true;
+            document.querySelectorAll('.question').forEach(q => {
+                q.querySelector('.error-message').style.display = 'none';
+                if (!getSelectedAnswer(q)) {
+                    ok = false;
+                    q.querySelector('.error-message').style.display = 'block';
+                }
+            });
+            return ok;
+        }
+
+        function checkAndSubmitForm() {
+            if (!validateAllQuestions()) return;
+            document.getElementById('all-answers-form').submit();
+        }
+
+        function showNoQuestions() {
+            const form = document.getElementById('all-answers-form');
+            if (form) form.style.display = 'none';
+
+            const msg = document.getElementById('no-questions-message');
+            if (msg) msg.style.display = 'block';
+        }
+
+        function bindNavArrows() {
+            document.querySelectorAll('.nav-arrow').forEach(a => {
+                if (a.dataset.bound === '1') return;
+                a.dataset.bound = '1';
+                a.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navigateTo(this.dataset.url || this.getAttribute('href'));
+                });
+            });
+        }
+
+        async function navigateTo(url) {
+            try {
+                const response = await fetch(url, {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                });
+
+                const text = await response.text();
+
+                let data = null;
+                try {
+                    data = JSON.parse(text);
+                } catch (_) {
+                    data = null;
+                }
+
+                if (data && typeof data === 'object' && data['No question'] === true) {
+                    showNoQuestions();
+                    return;
+                }
+
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+
+                const newCard = doc.getElementById('question-card');
+                const oldCard = document.getElementById('question-card');
+
+                if (newCard && oldCard) {
+                    oldCard.replaceWith(newCard);
+                    document.getElementById('no-questions-message').style.display = 'none';
+                    document.getElementById('all-answers-form').style.display = '';
+                    bindNavArrows();
+                    history.pushState(null, '', url);
+                } else {
+                    window.location.href = url;
+                }
+            } catch (err) {
+                console.error('Navigation error:', err);
+                window.location.href = url;
+            }
+        }
+
+        async function checkQuestion(btn) {
+            const questionEl = btn.closest('.question');
+            const errorEl    = questionEl.querySelector('.error-message');
+            const qid        = questionEl.getAttribute('data-question-id');
+
+            questionEl.classList.remove('true-question', 'false-question');
+            errorEl.style.display = 'none';
+
+            const selected = getSelectedAnswer(questionEl);
+            if (!selected) {
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('single_question_id', qid);
+            formData.append(`answer_${qid}`, selected.value);
+
+            btn.classList.add('is-loading');
+            btn.setAttribute('disabled', 'disabled');
+
+            try {
+                const response = await fetch(
+                    document.getElementById('all-answers-form').action,
+                    {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                    }
+                );
+
+                const raw = (await response.text()).trim();
+
+                let parsed = null;
+                try { parsed = JSON.parse(raw); } catch (_) { parsed = null; }
+
+                if (parsed && typeof parsed === 'object' && parsed['No question'] === true) {
+                    showNoQuestions();
+                    return;
+                }
+
+                let isTrue;
+                if (parsed && typeof parsed === 'boolean') {
+                    isTrue = parsed;
+                } else if (parsed && typeof parsed === 'object') {
+                    isTrue = Boolean(parsed.result ?? parsed.success ?? parsed.correct);
+                } else {
+                    isTrue = raw.toLowerCase() === 'true';
+                }
+
+                playResultAnimation(questionEl, isTrue);
+
+            } catch (err) {
+                console.error('Ошибка проверки ответа:', err);
+            } finally {
+                btn.classList.remove('is-loading');
+                btn.removeAttribute('disabled');
+            }
+        }
+
+        function playResultAnimation(el, isTrue) {
+            const cls = isTrue ? 'true-question' : 'false-question';
+            el.classList.remove('true-question', 'false-question');
+            void el.offsetWidth;
+            el.classList.add(cls);
+            el.addEventListener('animationend', () => {
+                if (cls === 'false-question') el.classList.remove(cls);
+            }, { once: true });
+        }
+
+        document.addEventListener('DOMContentLoaded', bindNavArrows);
+    </script>
+</body>
+</html>

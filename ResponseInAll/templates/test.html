@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тест с проверкой по кнопке</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: #f0f4f8;
+      color: #2c3e50;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .quiz-container {
+      max-width: 600px;
+      width: 100%;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 26px;
+    }
+
+    .question-block {
+      margin-bottom: 35px;
+    }
+
+    .question-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    /* БАЗОВАЯ КАРТОЧКА */
+    .answer-card {
+      position: relative;
+      overflow: hidden;
+      padding: 16px 20px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      background-color: #ffffff;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      user-select: none;
+      z-index: 1;
+      transition: border-color 0.2s, background-color 0.2s, color 0.3s;
+    }
+
+    /* Состояние наведения */
+    .answer-card:not(.disabled):not(.selected):hover {
+      border-color: #3498db;
+      background-color: #f7faff;
+    }
+
+    /* СТИЛЬ ДЛЯ ВЫБРАННОЙ КАРТОЧКИ (до проверки) */
+    .answer-card.selected {
+      border-color: #3498db;
+      background-color: #ebf5ff;
+      font-weight: 600;
+    }
+
+    /* Блокировка после проверки */
+    .answer-card.disabled {
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* НЕПРАВИЛЬНЫЙ ВЫБРАННЫЙ ОТВЕТ (Красный цвет и тряска) */
+    .answer-card.incorrect {
+      background-color: #fae8e8 !important;
+      border-color: #e74c3c !important;
+      color: #c0392b !important;
+      animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    /* ========================================================
+       АНИМАЦИЯ ПРАВИЛЬНОЙ ЗАЛИВКИ ИЗ ОПРЕДЕЛЕННОЙ ТОЧКИ
+       ======================================================== */
+    .answer-card::before {
+      content: '';
+      position: absolute;
+      left: var(--x, 50%);
+      top: var(--y, 50%);
+      width: 0;
+      height: 0;
+      background-color: #2ecc71;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease-out, height 0.6s ease-out;
+      z-index: -1;
+    }
+
+    /* Класс правильного ответа */
+    .answer-card.correct {
+      color: #ffffff !important;
+      border-color: #2ecc71 !important;
+    }
+
+    /* Раздуваем круг */
+    .answer-card.correct::before {
+      width: 300%;
+      height: 600px;
+    }
+
+    /* ========================================================
+       КНОПКА ПРОВЕРКИ И РЕЗУЛЬТАТЫ
+       ======================================================== */
+    .btn-submit {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background-color: #3498db;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-top: 20px;
+    }
+
+    .btn-submit:hover {
+      background-color: #2980b9;
+    }
+
+    .result-text {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 600;
+      margin-top: 25px;
+      display: none; /* Появляется после проверки */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <h1>🧠 Тест с проверкой результатов</h1>
+
+    <!-- Вопрос 1 -->
+    <div class="question-block" data-correct-index="2">
+      <div class="question-title">1. Какое свойство CSS отвечает за цвет фонда?</div>
+      <div class="options-grid">
+        <div class="answer-card" onclick="selectAnswer(event, this)">color</div>
+        <div class="answer-card" onclick="selectAnswer(event, this)">border</div>
+        <div class="answer-card" onclick="selectAnswer(event, this)">background-color</div>
+      </div>
+    </div>
+
+    <!-- Вопрос 2 -->
+    <div class="question-block" data-correct-index="0">
+      <div class="question-title">2. Сколько бит в одном байте?</div>
+      <div class="options-grid">
+        <div class="answer-card" onclick="selectAnswer(event, this)">8</div>
+        <div class="answer-card" onclick="selectAnswer(event, this)">10</div>
+        <div class="answer-card" onclick="selectAnswer(event, this)">1024</div>
+      </div>
+    </div>
+
+    <!-- Кнопка действия -->
+    <button class="btn-submit" onclick="checkAllAnswers()">Проверить результат</button>
+
+    <!-- Текст с результатом -->
+    <div class="result-text" id="resultBlock"></div>
+  </div>
+
+  <script>
+    // Объект для хранения информации о кликах пользователя
+    // Ключ — индекс вопроса, значение — объект с выбранным индексом карточки и координатами клика
+    const userSelections = {};
+
+    // Функция выбора ответа (срабатывает при клике до проверки)
+    function selectAnswer(event, selectedCard) {
+      const questionBlock = selectedCard.closest('.question-block');
+      const allCards = questionBlock.querySelectorAll('.answer-card');
+
+      // Находим индекс вопроса на странице, чтобы сохранить выбор в правильную ячейку
+      const questionIndex = Array.from(document.querySelectorAll('.question-block')).indexOf(questionBlock);
+
+      // Снимаем выделение со всех карточек этого вопроса
+      allCards.forEach(card => card.classList.remove('selected'));
+
+      // Выделяем текущую карточку
+      selectedCard.classList.add('selected');
+
+      // Вычисляем координаты клика относительно выбранной карточки
+      const rect = selectedCard.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      // Находим индекс выбранной карточки среди вариантов
+      const cardIndex = Array.from(allCards).indexOf(selectedCard);
+
+      // Сохраняем данные выбора
+      userSelections[questionIndex] = {
+        cardIndex: cardIndex,
+        clickX: x,
+        clickY: y
+      };
+    }
+
+    // Функция проверки всех ответов по кнопке
+    function checkAllAnswers() {
+      const questionBlocks = document.querySelectorAll('.question-block');
+      let score = 0;
+
+      questionBlocks.forEach((questionBlock, questionIndex) => {
+        const correctIndex = parseInt(questionBlock.getAttribute('data-correct-index'));
+        const allCards = questionBlock.querySelectorAll('.answer-card');
+        const selection = userSelections[questionIndex];
+
+        // 1. Блокируем клики по всем карточкам, так как тест завершен
+        allCards.forEach(card => card.classList.add('disabled'));
+
+        // Получаем правильную карточку
+        const correctCard = allCards[correctIndex];
+
+        // 2. Логика для случая, если пользователь выбрал ответ в этом вопросе
+        if (selection) {
+          const isCorrect = selection.cardIndex === correctIndex;
+          const selectedCard = allCards[selection.cardIndex];
+
+          // Снимаем класс предварительного выделения
+          selectedCard.classList.remove('selected');
+
+          if (isCorrect) {
+            score++;
+            // Передаем сохраненные координаты клика для точной заливки
+            correctCard.style.setProperty('--x', `${selection.clickX}px`);
+            correctCard.style.setProperty('--y', `${selection.clickY}px`);
+            correctCard.classList.add('correct');
+          } else {
+            // Если ответ неверный, красим выбор пользователя в красный
+            selectedCard.classList.add('incorrect');
+
+            // А для правильной карточки генерируем СЛУЧАЙНОЕ место старта заливки
+            setRandomCoordinates(correctCard);
+            correctCard.classList.add('correct');
+          }
+        } else {
+          // 3. Если пользователь вообще пропустил вопрос — просто подсвечиваем правильный из рандомной точки
+          setRandomCoordinates(correctCard);
+          correctCard.classList.add('correct');
+        }
+      });
+
+      // Отображаем блок результатов
+      const resultBlock = document.getElementById('resultBlock');
+      resultBlock.textContent = `Вы ответили правильно на ${score} из ${questionBlocks.length} вопросов!`;
+      resultBlock.style.display = 'block';
+
+      // Скрываем кнопку проверки, чтобы не слать запросы повторно
+      document.querySelector('.btn-submit').style.display = 'none';
+    }
+
+    // Хелпер для установки случайных координат на карточке
+    function setRandomCoordinates(card) {
+      const rect = card.getBoundingClientRect();
+      const randomX = Math.random() * rect.width;
+      const randomY = Math.random() * rect.height;
+      card.style.setProperty('--x', `${randomX}px`);
+      card.style.setProperty('--y', `${randomY}px`);
+    }
+  </script>
+
+</body>
+</html>
