@@ -93,7 +93,7 @@
 
         <div style="margin-top: 24px;">
             <button type="submit" class="btn-save">💾 Сохранить</button>
-            <a href="{{ url_for('index') }}" class="btn-cancel">Отмена</a>
+            <a href="{{ url_for('change_blanc_question', list_id=list_id) if list_id else url_for('index') }}" class="btn-cancel">Отмена</a>
         </div>
     </form>
 </div>

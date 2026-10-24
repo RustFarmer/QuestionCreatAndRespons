@@ -50,7 +50,15 @@
         {% endif %}
     {% endif %}
     <div class="create-question-button">
-        <a href="/create_question"><i class="fa fa-cookie-bite"></i> Создать вопрос</a>
+        {% if update_button_check and list_id %}
+            <a href="{{ url_for('create_question', list_id=list_id) }}">
+                <i class="fa fa-cookie-bite"></i> Добавить вопрос в лист
+            </a>
+        {% else %}
+            <a href="/create_question">
+                <i class="fa fa-cookie-bite"></i> Создать вопрос
+            </a>
+        {% endif %}
     </div>
     <div class="update-card">
         <div class="settings-icon"><a class="fa fa-gear" href="/settings"></a></div>
@@ -83,13 +91,23 @@
 <div class="main-card">
     <form method="post" action="/addListQuestion" class="input-text">
         <label for="add_list_question">Введите название группы вопросов:</label>
-        <input type="text" id="add_list_question" name="add_list_question" required placeholder="Философия">
+        <input type="text" id="add_list_question" name="add_list_question" required placeholder="Философия" value="{{ question_list_name or '' }}">
         {% if items is defined and items %}
             <button type="submit" class="btn-small btn-add-answer">Добавить лист</button>
         {% else %}
             <p class="no-items">Необходимо добавить хотя бы 1 вопрос</p>
         {% endif %}
     </form>
+    {% if update_button_check and list_id %}
+        <div class="update-list-button">
+            <form method="post"
+                action="{{ url_for('update_list_question', list_id=list_id) }}">
+                <button type="submit" class="update-list-btn">
+                    <i class="fa fa-sync"></i> Обновить содержание списка
+                </button>
+            </form>
+        </div>
+    {% endif %}
 
     <div class="question-card">
         <h2>Список вопросов</h2>

@@ -2,14 +2,14 @@ import json
 import requests
 
 from loguru import logger
-from Settings.module import file_data_url, log_settings_path
+from Settings.module import log_settings_path
 
 logger.add(f"{log_settings_path}GetfileUrl.log", format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}")
 
 
 class GetFileUrl:
-    def __init__(self):
-        self.file_url: str = file_data_url
+    def __init__(self, file_url):
+        self.file_url: str = file_url
         self.file_url_list: dict = self.__load_url__
 
         logger.info(self.file_url)

@@ -8,9 +8,9 @@ logger.add(f"{log_settings_path}save_urlLog.log", format="{time:YYYY-MM-DD at HH
 
 
 class SaveUrlFile:
-    def __init__(self):
+    def __init__(self, file_url):
         self.filename = filename_url
-        self.file_url = GetFileUrl().__load_url__
+        self.file_url = GetFileUrl(file_url).__load_url__
         print(self.file_url)
 
         logger.info(self.file_url)

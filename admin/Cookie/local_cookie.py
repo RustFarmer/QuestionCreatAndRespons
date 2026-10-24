@@ -3,27 +3,26 @@ import json
 from datetime import datetime
 from loguru import logger
 from Cookie.SessionKey import time_check_update, Value_Check
-from fileModule import filename_cookie
 from Settings.UpdateProgram.update import Update
 
 
-def set_session(time_check_updates, value_Check):
+def set_session(time_check_updates, value_Check, filename):
 
     data = {
         time_check_update: time_check_updates.strftime("%H:%M %d.%m.%y"),
         Value_Check: bool(value_Check)
     }
     try:
-        with open(filename_cookie, 'w', encoding='utf-8') as f:
+        with open(filename, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4, ensure_ascii=False)
         logger.info(f"Session saved: {data}")
     except Exception as e:
         logger.error(f"Failed to save session: {e}")
 
 
-def get_session():
+def get_session(filename):
     try:
-        with open(filename_cookie, 'r', encoding='utf-8') as f:
+        with open(filename, 'r', encoding='utf-8') as f:
             data = json.load(f)
         time_str = data.get(time_check_update)
         value = data.get(Value_Check)
@@ -35,35 +34,35 @@ def get_session():
     except FileNotFoundError:
         default_time = datetime.now().strftime("%H:%M %d.%m.%y")
         default_value = False
-        set_session(datetime.now(), default_value)
+        set_session(datetime.now(), default_value, filename)
         return default_time, default_value
     except (json.JSONDecodeError, KeyError) as e:
         logger.error(f"Error reading session: {e}")
         return None, None
 
 
-def update_session():
+def update_session(filename, file_data_url):
     now = datetime.now()
-    time_str, current_value = get_session()
+    time_str, current_value = get_session(filename)
 
     if time_str is None:
         logger.warning("Session time is invalid, forcing check.")
-        value_check = Update().all_check()
-        set_session(now, value_check)
+        value_check = Update(file_data_url).all_check()
+        set_session(now, value_check, filename)
         return value_check
 
     try:
         last_time = datetime.strptime(time_str, "%H:%M %d.%m.%y")
     except ValueError:
         logger.warning("Session time format invalid, forcing check.")
-        value_check = Update().all_check()
-        set_session(now, value_check)
+        value_check = Update(file_data_url).all_check()
+        set_session(now, value_check, filename)
         return value_check
 
     if (now - last_time).total_seconds() >= 25 * 60:
         logger.info("Time to re-check for updates.")
-        value_check = Update().all_check()
-        set_session(now, value_check)
+        value_check = Update(file_data_url).all_check()
+        set_session(now, value_check, filename)
         return value_check
     else:
         return current_value

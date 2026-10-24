@@ -11,11 +11,8 @@ def get_absolute_path() -> Path:
         return Path(f'{Path(__file__).resolve().parent}\\_internal')
 
 
-print(get_absolute_path())
-
-
 def get_client_path(flag=True):
-    return Path(f'{get_absolute_path().parent}\\client')
+    return Path(f'{get_absolute_path().parent}\\client\\')
     # else:
     # return Path(f'{get_absolute_path().parent.parent}\\client\\_internal')
 

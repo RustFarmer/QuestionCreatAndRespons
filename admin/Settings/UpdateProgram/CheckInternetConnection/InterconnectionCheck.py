@@ -2,6 +2,7 @@ import requests
 
 from Settings.module import git_hab_url
 
+
 class InterconnectionCheck:
     def __init__(self):
         self.git_hab_url = git_hab_url

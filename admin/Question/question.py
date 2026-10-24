@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import json
+import os
 from loguru import logger
 from firstRun import get_client_path, get_absolute_path
-from fileModule import FileNameAdmin, FileNameClient
+from fileModule import FileNameAdmin, FileNameClient, QuestionListPath
 
 file_path_admin = get_absolute_path()
 file_path_client = get_client_path()
@@ -168,6 +169,7 @@ class QuestionList:
             new_data = [u for u in data if u['Qst_list']['id'] != qst_id]
             with open(self.filename, 'w', encoding='utf-8') as f:
                 json.dump(new_data, f, indent=4, ensure_ascii=False)
+            os.remove(f"{QuestionListPath.dir_question_list}/{str(qst_id)}.json")
         except (FileNotFoundError, json.JSONDecodeError):
             data = []
             with open(self.filename, 'w', encoding='utf-8') as f:
