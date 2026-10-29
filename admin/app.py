@@ -207,7 +207,6 @@ def create_question(list_id):
 
         Question().save_question(question, answer_objects, right_objects, question_image_name)
 
-        # Если создаём вопрос «внутри» листа — сразу пишем и в файл листа
         if list_id is not None:
             items = items_load()
             list_file = f'{FileNameAdmin.filename_list_question_file}{list_id}.json'
@@ -513,11 +512,14 @@ def set_password():
 def lenta():
     value_check, update_url = cookie(filename=load_question_list_cookie)
 
-    if value_check:
-        get_list_question()
-        lent = load_question_list()
-    else:
-        lent = None
+    logger.info(value_check)
+    logger.info(update_url)
+
+    get_list_question()
+    lent = load_question_list()
+    
+    logger.info(lent)
+    
     return render_template(HtmlPageName.lenta_list_question, lent=lent)
 
 

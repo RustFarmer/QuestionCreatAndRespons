@@ -85,7 +85,6 @@ def get_list_question(save_flag=1, url=QuestionListPath.download_url_file, publi
     if save_flag:
         public_link = _get_public_link(url)
     else:
-        # Приоритет: public_links, затем url.
         candidate = public_links if public_links else url
 
         if not candidate:

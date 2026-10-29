@@ -1,0 +1,92 @@
+[
+  {
+    "Qst": {
+      "question_name": "Столица Франции?",
+      "answer": [ "Лион", "Марсель" ],
+      "right_answer": [ "Париж" ],
+      "image": null,
+      "id": 1
+    }
+  },
+  {
+    "Qst": {
+      "question_name": "Столица Японии?",
+      "answer": [ "Осака", "Киото" ],
+      "right_answer": [ "Токио" ],
+      "image": null,
+      "id": 2
+    }
+  },
+  {
+    "Qst": {
+      "question_name": "Самый большой океан?",
+      "answer": [ "Атлантический", "Индийский" ],
+      "right_answer": [ "Тихий" ],
+      "image": null,
+      "id": 3
+    }
+  },
+  {
+    "Qst": {
+      "question_name": "Самый большой материк?",
+      "answer": [ "Африка", "Северная Америка" ],
+      "right_answer": [ "Евразия" ],
+      "image": null,
+      "id": 4
+    }
+  },
+  {
+    "Qst": {
+      "question_name": "Столица России?",
+      "answer": [ "Санкт-Петербург", "Казань" ],
+      "right_answer": [ "Москва" ],
+      "image": null,
+      "id": 5
+    }
+  },
+  {
+    "Qst": {
+      "question_name": "Самая длинная река в мире?",
+      "answer": [ "Амазонка", "Янцзы" ],
+      "right_answer": [ "Нил" ],
+      "image": null,
+      "id": 6
+    }
+  },
+  {
+    "Qst": {
+      "question_name": "Столица Германии?",
+      "answer": [ "Мюнхен", "Гамбург" ],
+      "right_answer": [ "Берлин" ],
+      "image": null,
+      "id": 7
+    }
+  },
+  {
+    "Qst": {
+      "question_name": "Самый маленький материк?",
+      "answer": [ "Европа", "Антарктида" ],
+      "right_answer": [ "Австралия" ],
+      "image": null,
+      "id": 8
+    }
+  },
+  {
+    "Qst": {
+      "question_name": "Какой материк самый холодный?",
+      "answer": [ "Африка", "Азия" ],
+      "right_answer": [ "Антарктида" ],
+      "image": null,
+      "id": 9
+    }
+  },
+  {
+    "Qst": {
+      "question_name": "Столица Италии?",
+      "answer": [ "Милан", "Венеция" ],
+      "right_answer": [ "Рим" ],
+      "image": null,
+      "id": 10
+    }
+  }
+]

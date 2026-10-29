@@ -18,6 +18,9 @@ def get_url_question_list(list_id: int | str) -> str | None:
     try:
         response = requests.get(URL_DOWNLOAD_FILE, timeout=10)
         response.raise_for_status()
+        
+        logger.info(response.raise_for_status())
+        
         data: dict = response.json()
     except (requests.RequestException, ValueError) as e:
         logger.exception(e)
@@ -28,5 +31,7 @@ def get_url_question_list(list_id: int | str) -> str | None:
         logger.error(f"В url_dowload_file.json нет ключа для list_id={list_id}")
         return None
 
+    logger.info(link)
+    
     return link
 

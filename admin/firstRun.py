@@ -12,7 +12,7 @@ def get_absolute_path() -> Path:
 
 
 def get_client_path(flag=True):
-    return Path(f'{get_absolute_path().parent}\\client\\')
+    return Path(f'{get_absolute_path().parent.parent}\\client\\_internal')
     # else:
     # return Path(f'{get_absolute_path().parent.parent}\\client\\_internal')
 
@@ -26,13 +26,14 @@ def get_absolute_client_path() -> Path:
 
 
 def get_client_in_all_path() -> Path:
-    return Path(f'{get_absolute_path().parent}\\ResponseInAll')
+    return Path(f'{get_absolute_path().parent.parent}\\ResponseInAll\\_internal')
 
 
 class FirstRun:
     def __init__(self):
         self.file_path_admin = get_absolute_path()
         self.client_path = get_client_path(True)
+        self.client_all_path = get_client_in_all_path()
         print(self.client_path)
         self.filename_list_dict = {
             "\\Cookie\\local_cookie.json":
@@ -106,6 +107,20 @@ class FirstRun:
             "\\ListBlancQuestion\\listBlancQuestion.json":
                 {
                     "Body": []
+                },
+            "/question.json":
+                {
+                    "client_all_flag": True,
+                    "Body": [
+                        {
+                            "Qst": {
+                                "question_name": "Кто такой Патрин?",
+                                "answer": ["Бугалтер", "Директор"],
+                                "right_answer": ["Преподаватель"],
+                                "id": 1
+                            }
+                        }
+                    ]
                 }
         }
 
@@ -135,6 +150,12 @@ class FirstRun:
                         with open(filepath, 'r', encoding='utf-8') as f:
                             logger.info(key)
                             logger.info(value)
+                if value.get("client_all_flag"):
+                    filepath = f'{self.client_all_path}{key}'
+                    logger.info(filepath)
+                    with open(filepath, 'r', encoding='utf-8') as f:
+                        logger.info(key)
+                        logger.info(value)
             except KeyError as e:
                 logger.error(e)
             try:

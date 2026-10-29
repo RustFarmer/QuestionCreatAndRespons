@@ -1,82 +1,50 @@
 [
   {
     "QuestionList": {
-      "name_question_lits": "algebra_basics",
-      "user_name": "user_01",
-      "topic": "mathematics",
+      "name_question_lits": "Солнечная система",
+      "user_name": "systeam",
+      "topic": "астрономия",
       "list_id": 1
     }
   },
   {
     "QuestionList": {
-      "name_question_lits": "geometry_intro",
-      "user_name": "user_02",
-      "topic": "mathematics",
+      "name_question_lits": "Столицы государств",
+      "user_name": "systeam",
+      "topic": "география",
       "list_id": 2
     }
   },
   {
     "QuestionList": {
-      "name_question_lits": "physics_mechanics",
-      "user_name": "user_03",
-      "topic": "physics",
+      "name_question_lits": "Основы экономики",
+      "user_name": "systeam",
+      "topic": "экономика",
       "list_id": 3
     }
   },
   {
     "QuestionList": {
-      "name_question_lits": "chemistry_elements",
-      "user_name": "user_04",
-      "topic": "chemistry",
+      "name_question_lits": "Основы истории искусства",
+      "user_name": "systeam",
+      "topic": "искусство",
       "list_id": 4
     }
   },
   {
     "QuestionList": {
-      "name_question_lits": "history_ancient",
-      "user_name": "user_05",
-      "topic": "history",
+      "name_question_lits": "Основы истории",
+      "user_name": "systeam",
+      "topic": "история",
       "list_id": 5
     }
   },
   {
     "QuestionList": {
-      "name_question_lits": "biology_cells",
-      "user_name": "user_06",
-      "topic": "biology",
+      "name_question_lits": "Биология клетки",
+      "user_name": "systeam",
+      "topic": "биология",
       "list_id": 6
-    }
-  },
-  {
-    "QuestionList": {
-      "name_question_lits": "programming_python",
-      "user_name": "user_07",
-      "topic": "it",
-      "list_id": 7
-    }
-  },
-  {
-    "QuestionList": {
-      "name_question_lits": "database_sql",
-      "user_name": "user_08",
-      "topic": "it",
-      "list_id": 8
-    }
-  },
-  {
-    "QuestionList": {
-      "name_question_lits": "english_vocabulary",
-      "user_name": "user_09",
-      "topic": "languages",
-      "list_id": 9
-    }
-  },
-  {
-    "QuestionList": {
-      "name_question_lits": "literature_classics",
-      "user_name": "user_10",
-      "topic": "literature",
-      "list_id": 10
     }
   }
 ]
