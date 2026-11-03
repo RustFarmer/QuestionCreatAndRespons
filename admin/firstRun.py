@@ -8,11 +8,11 @@ def get_absolute_path() -> Path:
     try:
         return Path(__file__).resolve().parent
     except FileNotFoundError:
-        return Path(f'{Path(__file__).resolve().parent}\\_internal')
+        return Path(f'{Path(__file__).resolve().parent}')
 
 
 def get_client_path(flag=True):
-    return Path(f'{get_absolute_path().parent.parent}\\client\\_internal')
+    return Path(f'{get_absolute_path().parent}\\client')
     # else:
     # return Path(f'{get_absolute_path().parent.parent}\\client\\_internal')
 
@@ -26,7 +26,8 @@ def get_absolute_client_path() -> Path:
 
 
 def get_client_in_all_path() -> Path:
-    return Path(f'{get_absolute_path().parent.parent}\\ResponseInAll\\_internal')
+    return Path(f'{get_absolute_path().parent}\\ResponseInAll')
+    #return Path(f'{get_absolute_path().parent.parent}\\ResponseInAll\\_internal')
 
 
 class FirstRun:

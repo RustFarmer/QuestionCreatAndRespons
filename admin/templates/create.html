@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>AdminPageCreateQuestionList</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='pass_cut_off.css') }}">
+
+    {% if style.Topic.topic_name == 'default' %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='deafoult/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='deafoult/pass_cut_off.css') }}">
+    {% else %}
+         <link rel="stylesheet" href="{{ url_for('static', filename=style.Topic.py_file_name_html_name) }}">
+    {% endif %}
 </head>
 <body>
 <header class="header">

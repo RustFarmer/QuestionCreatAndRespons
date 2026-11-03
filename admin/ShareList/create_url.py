@@ -8,7 +8,6 @@ class Url:
         self.url = None
 
     def link_component(self) -> str:
-        # self.url = f'https://{self.user_name}/question={self.question}/answer={self.answer}/rightAnswer={self.right_answer}/question_id={self.question_id}'
         self.url = f'https://{self.user_name}/question={self.question}/answer={self.answer}/right_answer={self.right_answer}/question_id={self.question_id}'
         return self.url
 

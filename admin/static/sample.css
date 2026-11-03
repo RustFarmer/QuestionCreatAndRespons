@@ -1,0 +1,252 @@
+/* Базовые стили */
+* {}
+body {}
+body::before {}
+@keyframes bg-move {}
+@keyframes gradient {}
+@keyframes pulse-badge {}
+@keyframes breatheRainbow {}
+@keyframes Yellowgradient {}
+
+/* Шапка */
+.header {}
+.header a {}
+.header a i {}
+.header-text {}
+.header-badge {}
+
+/* Основные контейнеры */
+.main-card {}
+.main-card h2 {}
+.main-card:hover {}
+.main-card-create-question {}
+.question-card {}
+.question_cards {}
+.question_cards-main {}
+.card {}
+.card:hover {}
+.card-header {}
+.card-header .icon {}
+.card-header h2 {}
+.card-header .sub {}
+.two-card {}
+.no-items {}
+.settings-card {}
+.settings-name {}
+.settings {}
+.settings::after {}
+.settings:hover {}
+.update-image-card {}
+.del_question {}
+
+/* Блоки вопросов и ответов */
+.question {}
+.question::after {}
+.question:hover {}
+.question-name {}
+.question-answer {}
+.question-answer::before {}
+.question-answer:hover::before {}
+.question-answer:hover {}
+.question-answer.question-answer-true {}
+.question-answer.question-answer-true::before {}
+.question-answer.question-answer-true::after {}
+.answers-block {}
+.answers-block label {}
+.answers-container {}
+.answer-row {}
+.answer-row input[type="text"] {}
+.answer-row-true {}
+.answer-row-true input[type="text"] {}
+.answer-row-true input[type="text"]:focus {}
+
+/* Поля ввода и текстовые блоки */
+.input-text {}
+.input-text label {}
+.input-text input[type="text"] {}
+.input-text input[type="text"]:focus {}
+.input-text input[type="text"]:hover {}
+.percent-text {}
+.percent-text label {}
+.percent-text input[type="text"] {}
+
+/* Кнопки */
+.create-question-button {}
+.create-question-button:hover {}
+.create-question-button a {}
+button.btn-small {}
+.btn-add-answer {}
+.btn-add-answer:hover {}
+.btn-remove-answer {}
+.btn-remove-answer:hover {}
+.btn-save {}
+.btn-save:hover {}
+.btn-cancel {}
+.btn-cancel:hover {}
+.btn-submit {}
+.btn-submit:hover {}
+.btn-submit:active {}
+.btn-submit:disabled {}
+.btn {}
+.btn:active {}
+.btn-add {}
+.btn-add:hover {}
+.btn-remove {}
+.btn-remove:hover {}
+.btn-remove:disabled {}
+.btn-remove:disabled:hover {}
+.btn_del_qst {}
+.btn_del_qst:hover {}
+.btn_del_qst a {}
+.use-button {}
+.use-button:hover {}
+.use-button a {}
+
+/* Карточки действий (Изменение, Шаринг, Загрузка, Обновление) */
+.change-question {}
+.change-question:hover {}
+.share_question {}
+.share_question_card {}
+.share_question_card button {}
+.share_question_card:hover {}
+.download_question {}
+.download_question a {}
+.download_question:hover {}
+.download_question button {}
+.change-image-result-card {}
+.change-image-result-card a {}
+.change-image-result-card:hover {}
+.change-image-result a {}
+.update-card {}
+.update-card:hover {}
+.update-card a {}
+.question_card_download_button {}
+.question_card_download_button:hover {}
+.question_card_download_button a {}
+.question_card_open_question_list {}
+.question_card_open_question_list:hover {}
+.question_card_open_question_list a {}
+.update-list-button button {}
+.update-list-button button:hover {}
+.update-list-button button a {}
+.clear-btn {}
+.clear-btn a {}
+.clear-btn:hover {}
+
+/* Списки и особые карточки */
+.list-blanc-question {}
+.list-blanc-question:hover {}
+.list-blanc-question h1 {}
+.question-list {}
+.question-list:hover {}
+.deleteList {}
+.deleteList a {}
+.deleteButtonList {}
+.deleteButtonList:hover {}
+.download-button {}
+.download-emoji {}
+.download-emoji:hover {}
+.OpenBlancQuestion {}
+.OpenBlancQuestion h1 {}
+.OpenBlancQuestion:hover {}
+.pass-cut-off {}
+.pass-cut-off h1 {}
+.pass-cut-off:hover {}
+
+/* Формы и загрузка файлов */
+.upload-form-container {}
+.upload-form-container form {}
+.upload-form-container textarea, .upload-form-container input {}
+.upload-form-container button {}
+.upload-form-container button:hover {}
+.toggle-upload-btn {}
+.toggle-upload-btn:hover {}
+.file-upload-wrapper {}
+.file-upload-wrapper input[type="file"] {}
+.file-upload-btn {}
+.file-upload-btn i {}
+.file-upload-btn:hover {}
+.file-upload-btn.dragover {}
+.forms-container {}
+.form-item {}
+.form-item:hover {}
+.remove-single-btn {}
+.remove-single-btn:hover {}
+.upload-block {}
+.upload-block input[type="file"] {}
+.upload-block input[type="file"]::file-selector-button {}
+.upload-block input[type="file"]::file-selector-button:hover {}
+.upload-block button {}
+.upload-block button:hover {}
+.upload-block button:active {}
+.upload-block button i {}
+.actions-panel {}
+.counter-badge {}
+.two-card-value {}
+.two-remove-single-btn {}
+.two-remove-single-btn:hover {}
+
+/* Изображения и превью */
+.preview-container {}
+.preview-box {}
+.preview-box img {}
+.preview-box.has-image {}
+.preview-info {}
+.preview-info .file-name {}
+.preview-info .file-size {}
+.preview-info .file-placeholder {}
+.image-container {}
+.image-card {}
+.image-card h3 {}
+.image-item {}
+.image-item .use-button {}
+.image-item .file-name {}
+.image-preview-box {}
+
+/* Ползунки (Range) */
+.range-section {}
+.range-section .range-label {}
+.range-section .range-label i {}
+.range-wrapper {}
+.range-wrapper input[type="range"] {}
+.range-wrapper input[type="range"]::-webkit-slider-track {}
+.range-wrapper input[type="range"]::-webkit-slider-thumb {}
+.range-wrapper input[type="range"]::-webkit-slider-thumb:hover {}
+.range-wrapper input[type="range"]::-moz-range-track {}
+.range-wrapper input[type="range"]::-moz-range-thumb {}
+.range-value {}
+
+/* Уведомления и статусы */
+.status-message {}
+.status-message.show {}
+.status-message.success {}
+.status-message.error {}
+.status-message i {}
+
+/* Медиа-запросы */
+@media (max-width: 640px) {
+    .card {}
+    .card-header h2 {}
+    .card-header .sub {}
+    .preview-container {}
+    .image-container {}
+    .preview-box {}
+    .range-section {}
+    .range-wrapper {}
+    .header {}
+    .header a {}
+    .header-badge {}
+    .range-value {}
+}
+
+@media (max-width: 700px) {
+    .card {}
+    .header {}
+    .header-text {}
+    .percent-text {}
+    .upload-block {}
+    .upload-block button {}
+    .actions-panel {}
+    .actions-panel .btn {}
+    .remove-single-btn {}
+}

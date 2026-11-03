@@ -12,6 +12,29 @@ filename_cookie: str = f'{file_path_admin}/Cookie/local_cookie.json'
 
 load_question_list_cookie: str = f"{file_path_admin}/LentaQuestionList/Cookie/local_cookie.json"
 
+@dataclass(frozen=True)
+class HtmlPageName:
+    set_password = 'set_password.html'
+    index = 'index.html'
+    index_url = 'index'
+
+    crete = 'create.html'
+
+    change_question_ = 'changeQuestion.html'
+    changeImageResultScreen_html = 'changeImageResultScreen.html'
+    pass_cut_off_html = 'pass_cut_off.html'
+    question_list = 'questionList.html'
+    question_list_url = 'questionList'
+
+    settings_html = 'settings.html'
+    lenta_list_question = "lenta_list_question.html"
+    lenta_check_list_preview = "lenta_check_list_preview.html"
+    shope = "shope.html"
+
+@dataclass(frozen=True)
+class RedirectHtmlPage:
+    index = 'index'
+    change_blanc_question = "change_blanc_question"
 
 @dataclass(frozen=True)
 class FilePathLogApp:
@@ -59,6 +82,12 @@ class QuestionListPath:
     save_response_question_list = f"{file_path_admin}/LentaQuestionList/save_dir_response_question_list"
     question_list_filename = "QuestionList.json"
     for_write_file_path_and_filename = f"{save_response_question_list}/{question_list_filename}"
+    for_write_file_path_and_filename_topic = f"{file_path_admin}/Topic/data/topic_save.json"
+    download_url_file_topic = (
+        "https://github.com/RustFarmer/Test/blob/main/download_url_file_topic.json"
+        .replace("github.com", "raw.githubusercontent.com")
+        .replace("/blob/", "/")
+    )
     download_url_file = (
         "https://github.com/RustFarmer/Test/blob/main/download_url_file.json"
         .replace("github.com", "raw.githubusercontent.com")

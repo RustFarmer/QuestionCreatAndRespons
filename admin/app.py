@@ -2,7 +2,7 @@
 import os
 import shutil
 import json
-
+import requests
 import webview
 
 from dataclasses import dataclass
@@ -37,10 +37,12 @@ from Password.change_password import ChangePassword
 
 from LentaQuestionList.load_list_question import load_question_list
 from LentaQuestionList.get_list_question import get_list_question
-from  LentaQuestionList.get_file_question_list import get_url_question_list
+from LentaQuestionList.get_file_question_list import get_url_question_list
 
+from Topic.topic import GetTopic, ChangeTopic
+from Topic.DownloadTopic.download_topic import get_topic, get_topic_all
 from firstRun import FirstRun
-from fileModule import FileNameAdmin, FileNameClient, FilePathLogApp, filename_cookie, load_question_list_cookie, \
+from fileModule import HtmlPageName, RedirectHtmlPage, FileNameAdmin, FileNameClient, FilePathLogApp, filename_cookie, load_question_list_cookie, QuestionListPath, \
     UPLOAD_FOLDER, UPLOAD_FOLDER_CLIENT
 
 logger.add(f"{FilePathLogApp.file_path_app}\\appFileLog.log",
@@ -100,25 +102,6 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
-@dataclass
-class HtmlPageName:
-    set_password = 'set_password.html'
-    index = 'index.html'
-    index_url = 'index'
-
-    crete = 'create.html'
-
-    change_question_ = 'changeQuestion.html'
-    changeImageResultScreen_html = 'changeImageResultScreen.html'
-    pass_cut_off_html = 'pass_cut_off.html'
-    question_list = 'questionList.html'
-    question_list_url = 'questionList'
-
-    settings_html = 'settings.html'
-    lenta_list_question = "lenta_list_question.html"
-    lenta_check_list_preview = "lenta_check_list_preview.html"
-
-
 def items_load(filenames=FileNameAdmin.filename_question):
     try:
         with open(filenames, 'r', encoding='utf-8') as f:
@@ -153,19 +136,25 @@ def change_items_load(item):
         json.dump(item, f, ensure_ascii=False, indent=4)
 
 
+
 @app.route('/')
 def index():
+    get_style = GetTopic(1).get_topic()
+    
     itemss = items_load()
     value_check, update_url = cookie()
 
     logger.info(itemss)
-
-    return render_template(HtmlPageName.index, items=itemss, update=value_check, update_url=update_url)
+    topic = GetTopic(1).get_topic()
+    logger.info(topic)
+    return render_template(HtmlPageName.index, items=itemss, update=value_check, update_url=update_url, style=get_style, current_topic=get_style)
 
 
 @app.route('/create_question', defaults={'list_id': None}, methods=['GET', 'POST'])
 @app.route('/create_question/<int:list_id>', methods=['GET', 'POST'])
 def create_question(list_id):
+    get_style = GetTopic(1).get_topic()
+    
     if request.method == 'POST':
         question = request.form.get('question', '').strip()
         answers = request.form.getlist('answers[]')
@@ -211,37 +200,45 @@ def create_question(list_id):
             items = items_load()
             list_file = f'{FileNameAdmin.filename_list_question_file}{list_id}.json'
             update_question_list(list_file, items)
-            return redirect(url_for('change_blanc_question', list_id=list_id))
+            return redirect(url_for(RedirectHtmlPage.change_blanc_question, list_id=list_id))
 
         return redirect(url_for(HtmlPageName.index_url))
 
-    return render_template(HtmlPageName.crete, item=None, list_id=list_id)
+    return render_template(HtmlPageName.crete, item=None, list_id=list_id, style=get_style, current_topic=get_style)
 
 
 @app.route('/del_qst/<int:qst_id>')
 def del_qs(qst_id):
+    get_style = GetTopic(1).get_topic()
+    
     Question().delete_qst(qst_id)
     itemss = items_load()
-    return render_template(HtmlPageName.index, items=itemss, update=None)
+    return render_template(HtmlPageName.index, items=itemss, update=None, style=get_style, current_topic=get_style)
 
 
 @app.route('/del_qst_list/<int:qst_id>')
 def del_qst_list(qst_id):
+    get_style = GetTopic(1).get_topic()
+    
     Question().delete_qst(qst_id)
     QuestionList().delete_qst(qst_id)
 
     itemss = items_load(FileNameAdmin.filename_list)
-    return render_template(HtmlPageName.question_list, items=itemss)
+    return render_template(HtmlPageName.question_list, items=itemss, style=get_style, current_topic=get_style)
 
 
 @app.route('/OpenBlancQuestion')
 def all_blanc():
+    get_style = GetTopic(1).get_topic()
+    
     items = items_load(FileNameAdmin.filename_list)
-    return render_template(HtmlPageName.question_list, items=items)
+    return render_template(HtmlPageName.question_list, items=items, style=get_style, current_topic=get_style)
 
 
 @app.route('/addListQuestion', methods=['GET', 'POST'])
 def question_list():
+    get_style = GetTopic(1).get_topic()
+    
     items = items_load()
     if request.method == 'POST':
         list_name = request.form.get('add_list_question', '').strip()
@@ -251,11 +248,13 @@ def question_list():
             QuestionList().save_in_list(list_name, h, items)
 
             return render_template(HtmlPageName.index)
-    return render_template(HtmlPageName.index, items=items)
+    return render_template(HtmlPageName.index, items=items, style=get_style, current_topic=get_style)
 
 
 @app.route('/changeBlancQuestion/<int:list_id>')
 def change_blanc_question(list_id):
+    get_style = GetTopic(1).get_topic()
+    
     data = items_load(FileNameAdmin.filename_list)
 
     matching_items = next(
@@ -283,6 +282,7 @@ def change_blanc_question(list_id):
         update_button_check=True,
         list_id=list_id,
         question_list_name=question_list_names,
+        style=get_style, current_topic=get_style
     )
 
 @app.route('/update-list-question/<int:list_id>', methods=['POST'])
@@ -294,10 +294,12 @@ def update_list_question(list_id):
     if isinstance(result, Exception):
         logger.error(f"Не удалось обновить лист {list_id}: {result}")
 
-    return redirect(url_for('change_blanc_question', list_id=list_id))
+    return redirect(url_for(RedirectHtmlPage.change_blanc_question, list_id=list_id))
 
 @app.route('/changeQuestionAnswer/<int:question_id>', methods=['GET', 'POST'])
 def change_question(question_id):
+    get_style = GetTopic(1).get_topic()
+    
     all_items = items_load()
 
     question_item = None
@@ -320,13 +322,13 @@ def change_question(question_id):
             logger.info(answers_true)
 
             changer.save_question(question_text, answers, answers_true)
-            return redirect(url_for('index'))
+            return redirect(url_for(RedirectHtmlPage.index))
         else:
             return render_template(HtmlPageName.change_question_,
                                    item=question_item,
                                    error="Вопрос и хотя бы один ответ обязательны")
 
-    return render_template(HtmlPageName.change_question_, item=question_item)
+    return render_template(HtmlPageName.change_question_, item=question_item, style=get_style, current_topic=get_style)
 
 
 @app.route('/api/share/<int:question_id>')
@@ -352,27 +354,31 @@ def download_question():
     question_id = question['question_id']
     Question(question_id).save_question(name, answer, right_answer)
 
-    return redirect(url_for('index'))
+    return redirect(url_for(RedirectHtmlPage.index))
 
 
 @app.route('/changeImageResultScreen')
 def change_image_result_screen():
+    get_style = GetTopic(1).get_topic()
+    
     images = items_load(FileNameAdmin.filename_image_settings)
-    return render_template(HtmlPageName.changeImageResultScreen_html, images=images)
+    return render_template(HtmlPageName.changeImageResultScreen_html, images=images, style=get_style, current_topic=get_style)
 
 
 @app.route('/deleteFinallyImageInSave/<int:image_id>')
 def delete_finally_image_in_save(image_id):
+    get_style = GetTopic(1).get_topic()
+    
     DeleteImage().del_image(image_id)
     images = items_load(FileNameAdmin.filename_image_settings)
-    return render_template(HtmlPageName.changeImageResultScreen_html, images=images)
+    return render_template(HtmlPageName.changeImageResultScreen_html, images=images, style=get_style, current_topic=get_style)
 
 
 @app.route('/use_image/<int:image_id>')
 def use_image(image_id):
     print(image_id)
     LoadImage().load_image(image_id)
-    return redirect(url_for('index'))
+    return redirect(url_for(RedirectHtmlPage.index))
 
 
 @app.route('/UploadImage', methods=['POST'])
@@ -404,7 +410,7 @@ def upload_image():
         shutil.copy2(file_path_client, file_path)
         SaveImage().save(filename)
 
-        return redirect(url_for('index'))
+        return redirect(url_for(RedirectHtmlPage.index))
     else:
         return 'Недопустимый тип файла. Разрешены: ' + ', '.join(app.config['ALLOWED_EXTENSIONS']), 400
 
@@ -416,6 +422,8 @@ def allowed_file(filename):
 
 @app.route('/pass_cut_off', methods=['GET', 'POST'])
 def pass_cut_off():
+    get_style = GetTopic(1).get_topic()
+    
     images = PassCutOff().__load_image_data__()
     value = PassCutOff().__load_result_screen_dict__()
     print(images, value)
@@ -424,17 +432,19 @@ def pass_cut_off():
         file = request.files.get('percent_image')
         print(percent)
         print(file)
-    return render_template(HtmlPageName.pass_cut_off_html, images=images, values=value)
+    return render_template(HtmlPageName.pass_cut_off_html, images=images, values=value, style=get_style, current_topic=get_style)
 
 
 @app.route('/delete_pass_cut/<int:percent>/<image_name>')
 def del_pas_cut_one(percent, image_name):
+    get_style = GetTopic(1).get_topic()
+    
     PassCutOff().__delete_one_pass_cut__(percent, image_name)
 
     images = PassCutOff().__load_image_data__()
     value = PassCutOff().__load_result_screen_dict__()
 
-    return render_template(HtmlPageName.pass_cut_off_html, images=images, values=value)
+    return render_template(HtmlPageName.pass_cut_off_html, images=images, values=value, style=get_style, current_topic=get_style)
 
 
 @app.route('/upload-endpoint', methods=['POST'])
@@ -467,9 +477,11 @@ def upload_endpoint():
 
 @app.route('/updateIdQuestion')
 def update_question_id():
+    get_style = GetTopic(1).get_topic()
+    
     ChangeQuestionID().change_id()
     item = items_load()
-    return render_template(HtmlPageName.index, items=item)
+    return render_template(HtmlPageName.index, items=item, style=get_style, current_topic=get_style)
 
 
 @app.route('/clear-pass-off-file', methods=['POST'])
@@ -483,18 +495,21 @@ def clear_pass_off_file():
 
 @app.route('/settings')
 def settings():
+    get_style = GetTopic(1).get_topic()
+
     setting = SettingsPage().load_settings()
-    print(setting)
-    return render_template(HtmlPageName.settings_html, setting=setting)
+    return render_template(HtmlPageName.settings_html, setting=setting, style=get_style, current_topic=get_style)
 
 
 @app.route("/updateProgram")
 def update_program():
-    return redirect(url_for('index'))
+    return redirect(url_for(RedirectHtmlPage.index))
 
 
 @app.route("/set-password", methods=['GET', 'POST'])
 def set_password():
+    get_style = GetTopic(1).get_topic()
+    
     if request.method == 'POST':
         password = request.form.get('password', '').strip()
         logger.info(password)
@@ -505,54 +520,97 @@ def set_password():
             file_name_log="SettingsLog.log",
             password=password
         )
-    return render_template(HtmlPageName.set_password)
+    return render_template(HtmlPageName.set_password, style=get_style, current_topic=get_style)
 
 
-@app.route("/lenta")
-def lenta():
+@app.route("/lenta", defaults={'topic': False})
+@app.route("/shope/", defaults={'topic': True})
+def lenta(topic):
+    get_style = GetTopic(1).get_topic()
+    
     value_check, update_url = cookie(filename=load_question_list_cookie)
-
+    
     logger.info(value_check)
     logger.info(update_url)
-
-    get_list_question()
-    lent = load_question_list()
     
-    logger.info(lent)
+    if topic:
+        lent = get_topic_all()        
+        logger.info(lent)
+        return render_template(HtmlPageName.lenta_list_question, lent=lent, download_topic_flag=True, style=get_style, current_topic=get_style)
     
-    return render_template(HtmlPageName.lenta_list_question, lent=lent)
+    else:
+        get_list_question()
+        lent = load_question_list()
+        
+        logger.info(lent)
 
+        return render_template(HtmlPageName.lenta_list_question, lent=lent, download_topic_flag=False, style=get_style, current_topic=get_style)
 
-@app.route("/lenta/question_list/check_list_preview/<int:list_id>")
-def lenta_check_list_preview(list_id):
+@app.route("/shope/lenta/Topic/check_list_preview/<int:list_id>", defaults={'topic': True})
+@app.route("/lenta/question_list/check_list_preview/<int:list_id>", defaults={'topic': False})
+def lenta_check_list_preview(list_id, topic):
+    get_style = GetTopic(1).get_topic()
+    
     url_question_list = get_url_question_list(list_id)
+    url_topic_list = get_url_question_list(list_id, URL_DOWNLOAD_FILE="topic")
     logger.info(f"url_question_list={url_question_list!r}")
+    logger.info(f"url_question_list={url_topic_list!r}")
 
-    if not url_question_list:
-        logger.error(f"Не удалось получить ссылку для list_id={list_id}")
-        return "Не удалось получить ссылку на список вопросов", 502
+    logger.info(url_topic_list)
+    logger.info(topic)
+    if topic:
+        item = items_load()
+        logger.info(url_topic_list)
+        current_topic = get_topic(list_id)
+        get_style = {"Topic": {"topic_name": "new_style"}}
+        logger.info(current_topic)
+        return render_template(HtmlPageName.lenta_check_list_preview, items=item, style=get_style, current_topic=current_topic)
+        
+    else:
+        if not url_question_list:
+            logger.error(f"Не удалось получить ссылку для list_id={list_id}")
+            return "Не удалось получить ссылку на список вопросов", 502
 
-    item = get_list_question(False, url_question_list)
-    if item is None:
-        logger.error(f"Не удалось загрузить список вопросов для list_id={list_id}")
-        return "Не удалось загрузить список вопросов", 502
+        item = get_list_question(False, url_question_list)
+        if item is None:
+            logger.error(f"Не удалось загрузить список вопросов для list_id={list_id}")
+            return "Не удалось загрузить список вопросов", 502
 
-    return render_template(HtmlPageName.lenta_check_list_preview, items=item)
+        return render_template(HtmlPageName.lenta_check_list_preview, items=item, style=get_style, current_topic=get_style)
 
 
 @app.route("/lenta/question_list/download/<list_name>/<int:list_id>")
-def lenta_question_list_download(list_name, list_id):
+@app.route("/lenta/Topic/download/<topic_name>/<int:topic_id>")
+def lenta_question_list_download(list_name=None, list_id=None):
+    get_style = GetTopic(1).get_topic()
+    
     url_question_list = get_url_question_list(list_id)
+    url_topic_list = get_url_question_list(1, "topic")
     logger.info(f"url_question_list={url_question_list!r}")
 
-    item = get_list_question(False, url_question_list)
-    print(item)
-    
-    h = [x['Qst']['id'] for x in item]
+    if list_id != None:
+        item = get_list_question(False, url_topic_list)
+    elif list_name != None:
+        item = get_list_question(False, url_question_list)
+        
+        h = [x['Qst']['id'] for x in item]
 
-    QuestionList().save_in_list(list_name, h, item)
-    blanc = items_load(FileNameAdmin.filename_list)
-    return render_template(HtmlPageName.question_list, items=blanc)
+        QuestionList().save_in_list(list_name, h, item)
+        blanc = items_load(FileNameAdmin.filename_list)
+        return render_template(HtmlPageName.question_list, items=blanc, style=get_style, current_topic=get_style)
+
+@app.route("/change_topic/<int:topic_id>")
+def change_topic(topic_id: int):
+    ChangeTopic().change_topic()
+    itemss = items_load()
+    value_check, update_url = cookie()
+
+    logger.info(itemss)
+    get_style = GetTopic(1).get_topic()
+    
+    logger.info(get_style)
+    return redirect(url_for(RedirectHtmlPage.index, items=itemss, update=value_check, update_url=update_url, style=get_style, current_topic=get_style))
+
 
 
 @app.route("/exitProgram")
@@ -564,13 +622,14 @@ if __name__ == "__main__":
     now = datetime.now()
     current_time = str(now.strftime("%H:%M %d.%m.%y"))
 
+
     FirstRun().create_json_file()
 
     windows = webview.create_window('Admin', app, fullscreen=True)
-    webview.start()
+    #webview.start()
 
     host = "127.0.0.1"
     port = 5001
 
     url = f"http://{host}:{port}"
-    #app.run(debug=True)
+    app.run(debug=True)

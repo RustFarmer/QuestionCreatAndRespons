@@ -1,20 +1,37 @@
 import requests
 from loguru import logger
 
-URL_DOWNLOAD_FILE = (
+URL_DOWNLOAD_FILES_LIST = (
     "https://github.com/RustFarmer/Test/blob/main/url_dowload_file.json"
     .replace("github.com", "raw.githubusercontent.com")
     .replace("/blob/", "/")
 )
 
+list_git_url = "https://github.com/RustFarmer/Test/blob/main/url_dowload_file.json"
 
-def get_url_question_list(list_id: int | str) -> str | None:
+def create_url_for_download(url: str) -> str:
+    return (
+        url
+        .replace("github.com", "raw.githubusercontent.com")
+        .replace("/blob/", "/")
+    )
+
+
+
+def get_url_question_list(list_id: int | str, URL_DOWNLOAD_FILE="list") -> str | None:
     """
     Получает ссылку для скачивания списка вопросов по его list_id.
 
     :param list_id: Идентификатор списка (например, 1, 2, 3 …)
     :return: Ссылка для скачивания или None, если ссылка не найдена / произошла ошибка.
     """
+    
+    if URL_DOWNLOAD_FILE == "list":
+        URL_DOWNLOAD_FILE = create_url_for_download(list_git_url)
+    
+    logger.info(URL_DOWNLOAD_FILE)    
+    logger.info(URL_DOWNLOAD_FILE == "topic")
+    
     try:
         response = requests.get(URL_DOWNLOAD_FILE, timeout=10)
         response.raise_for_status()
@@ -34,4 +51,7 @@ def get_url_question_list(list_id: int | str) -> str | None:
     logger.info(link)
     
     return link
+
+
+
 

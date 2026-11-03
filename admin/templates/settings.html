@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Settings</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% if style.Topic.topic_name == 'default' %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='deafoult/style.css') }}">
+    {% else %}
+         <link rel="stylesheet" href="{{ url_for('static', filename=style.Topic.py_file_name_html_name) }}">
+    {% endif %}
+    
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 </head>
 

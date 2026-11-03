@@ -59,7 +59,7 @@ def update_session(filename, file_data_url):
         set_session(now, value_check, filename)
         return value_check
 
-    if (now - last_time).total_seconds() >= 25 * 60:
+    if (now - last_time).total_seconds() >= 250 * 60:
         logger.info("Time to re-check for updates.")
         value_check = Update(file_data_url).all_check()
         set_session(now, value_check, filename)

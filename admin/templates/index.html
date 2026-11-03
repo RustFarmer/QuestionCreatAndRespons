@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>AdminPageCreateQuestionList</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='newStyle.css')}}">
+    {% if style.Topic.topic_name == 'default' %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='deafoult/newStyle.css') }}">
+    {% else %}
+         <link rel="stylesheet" href="{{ url_for('static', filename=style.Topic.py_file_name_html_name) }}">
+    {% endif %}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -49,6 +53,13 @@
         </div>
         {% endif %}
     {% endif %}
+    {% if current_topic %}
+        <div class="change-image-result-card">
+            <a href="/change_topic/{{ current_topic.Topic.topic_id }}" class="topic-link">
+                <i class="fa fa-exchange-alt"></i> {{ current_topic.Topic.topic_name }}
+            </a>
+        </div>
+    {% endif %}
     <div class="create-question-button">
         {% if update_button_check and list_id %}
             <a href="{{ url_for('create_question', list_id=list_id) }}">
@@ -84,6 +95,12 @@
         <a href="/set-password">
             <h1>
                 <i class="fa fa-key"></i> Установить пароль для повторного прохождения теста <i class="fa fa-key"></i></h1>
+        </a>
+    </div>
+    <div class="OpenBlancQuestion">
+        <a href="/shope">
+            <h1>
+                <i class="fa fa-shop"></i> Shope<i class="fa fa-shop"></i></h1>
         </a>
     </div>
 </header>
@@ -216,5 +233,8 @@
         });
     </script>
 </div>
+
+
+
 </body>
 </html>
