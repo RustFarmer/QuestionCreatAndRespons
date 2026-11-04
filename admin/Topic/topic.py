@@ -15,6 +15,7 @@ class Topic:
         self._topic_name_key: str = "topic_name"
         self._topic_id_key: str = "topic_id"
         self._topic_py_file_name_html_name_key: str = "py_file_name_html_name"
+        self._topic_style_key = "topic_style"
         
     def load(self, filename) -> list | Exception:
         try:
@@ -27,7 +28,6 @@ class Topic:
         except FileNotFoundError as e:
             logger.error(e)
             return e
-
 
 class GetTopic(Topic):
     def __init__(self, topic_id, filename_save=None, topic_settings_data=None):
@@ -53,12 +53,19 @@ class GetTopic(Topic):
     def get_py_file_name_html_name_for_id(self) -> dict:
         return self._topic[self._topic_key][self._topic_py_file_name_html_name_key]
     
-    
+    def get_last_topic_id(self) -> int | None:
+        if not self.topic_save_data:
+            return None
+        return max(
+            item[self._topic_key][self._topic_id_key]
+            for item in self.topic_save_data
+        )
+        
 class ChangeTopic(Topic):
     def __init__(self, filename_save=None, topic_settings_data=None):
         super().__init__(filename_save, topic_settings_data)
     
-    def change_topic(self):
+    def change_topic(self) -> int | Exception:
         try:
             with open(self.filename_settings, 'r', encoding='utf-8') as f:
                 data: list = json.load(f)
@@ -77,24 +84,29 @@ class ChangeTopic(Topic):
             
             with open(self.filename_settings, 'w', encoding='utf-8') as f:
                 json.dump(_next_topic, f, ensure_ascii=False, indent=4)
-                
+            
+            return topic_id   
         except Exception as e:
             logger.exception(e)
             return e
     
-    
+    def change_for_certain(self, topic_id: int):
+        if self.change_topic() == topic_id:
+            return True
+        return self.change_for_certain(topic_id)
+
 class CreateTopic(Topic):
     def __init__(self, filename_save=None, topic_settings_data=None):
         super().__init__(filename_save, topic_settings_data)
         self.topic_id = self._topic_id()
         
-    def create_topic(self, name: str, py_file_name: str, topic_style: str):
+    def create_topic(self, topic_name: str, topic_py_file_name: str, topic_style: str):
         topic_dict: dict = {
             "Topic": {
-                "topic_name": name,
+                "topic_name": topic_name,
                 "topic_style": topic_style,
                 "py_file_name_html_name": 
-                        py_file_name,
+                        topic_py_file_name,
                 "topic_id": self.topic_id
             }
         }
@@ -102,7 +114,7 @@ class CreateTopic(Topic):
         self.topic_save_data.append(topic_dict)
         
         try:
-            with open(self.filename_save, 'w+', encoding='utf-8') as f:
+            with open(self.filename_save, 'w', encoding='utf-8') as f:
                 json.dump(self.topic_save_data, f, ensure_ascii=False, indent=4)
         
             logger.info(topic_dict)
@@ -116,7 +128,7 @@ class CreateTopic(Topic):
         ids = []
         for item in self.topic_save_data:
             if isinstance(item, dict):
-                tid = item.get(self._topic_key, {}).get(self._topic_id)
+                tid = item.get(self._topic_key, {}).get(self._topic_id_key)
                 if isinstance(tid, int):
                     ids.append(tid)
         return max(ids, default=0) + 1
@@ -141,4 +153,25 @@ class SaveTopic(Topic):
         except Exception as e:
             logger.error(e)
             return e
+        
+class DownloadTopic(Topic):
+    def __init__(self, filename_save=None, topic_settings_data=None):
+        super().__init__(filename_save, topic_settings_data)
+        
+    def download_topic(self, topic_id: int, all_topic: dict) -> bool:
+        topic_dict_for_save = dict(*[x for x in all_topic if x[self._topic_key][self._topic_id_key] == topic_id])
+        
+        topic_name = topic_dict_for_save[self._topic_key][self._topic_name_key]
+        topic_py_file_name_html_name = topic_dict_for_save[self._topic_key][self._topic_py_file_name_html_name_key]
+        topic_style = topic_dict_for_save[self._topic_key][self._topic_style_key]
+        
+        logger.info(topic_name)
+        logger.info(topic_py_file_name_html_name)
+        logger.info(topic_style)
+        
+        CreateTopic().create_topic(topic_name=topic_name, topic_py_file_name=topic_py_file_name_html_name, topic_style=topic_style)
+        top_id_new_save = GetTopic(1).get_last_topic_id()
+        
+        logger.info(top_id_new_save)
+        return top_id_new_save
         

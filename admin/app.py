@@ -39,11 +39,11 @@ from LentaQuestionList.load_list_question import load_question_list
 from LentaQuestionList.get_list_question import get_list_question
 from LentaQuestionList.get_file_question_list import get_url_question_list
 
-from Topic.topic import GetTopic, ChangeTopic
-from Topic.DownloadTopic.download_topic import get_topic, get_topic_all
+from Topic.topic import GetTopic, ChangeTopic, DownloadTopic
+from Topic.DownloadTopic.download_topic import get_topic, get_all_topics
 from firstRun import FirstRun
 from fileModule import HtmlPageName, RedirectHtmlPage, FileNameAdmin, FileNameClient, FilePathLogApp, filename_cookie, load_question_list_cookie, QuestionListPath, \
-    UPLOAD_FOLDER, UPLOAD_FOLDER_CLIENT
+    UPLOAD_FOLDER, UPLOAD_FOLDER_CLIENT, file_path_admin
 
 logger.add(f"{FilePathLogApp.file_path_app}\\appFileLog.log",
            format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}")
@@ -534,7 +534,7 @@ def lenta(topic):
     logger.info(update_url)
     
     if topic:
-        lent = get_topic_all()        
+        lent = get_all_topics()        
         logger.info(lent)
         return render_template(HtmlPageName.lenta_list_question, lent=lent, download_topic_flag=True, style=get_style, current_topic=get_style)
     
@@ -552,9 +552,9 @@ def lenta_check_list_preview(list_id, topic):
     get_style = GetTopic(1).get_topic()
     
     url_question_list = get_url_question_list(list_id)
-    url_topic_list = get_url_question_list(list_id, URL_DOWNLOAD_FILE="topic")
+    url_topic_list = get_url_question_list(list_id)
     logger.info(f"url_question_list={url_question_list!r}")
-    logger.info(f"url_question_list={url_topic_list!r}")
+    logger.info(f"url_topic_list={url_topic_list!r}")
 
     logger.info(url_topic_list)
     logger.info(topic)
@@ -581,22 +581,38 @@ def lenta_check_list_preview(list_id, topic):
 
 @app.route("/lenta/question_list/download/<list_name>/<int:list_id>")
 @app.route("/lenta/Topic/download/<topic_name>/<int:topic_id>")
-def lenta_question_list_download(list_name=None, list_id=None):
-    get_style = GetTopic(1).get_topic()
-    
+@app.route("/shope/lenta/Topic/download/<topic_name>/<int:topic_id>")
+def lenta_question_list_download(list_name=None, list_id=None, topic_name=None, topic_id=None):
     url_question_list = get_url_question_list(list_id)
-    url_topic_list = get_url_question_list(1, "topic")
+    
     logger.info(f"url_question_list={url_question_list!r}")
-
-    if list_id != None:
-        item = get_list_question(False, url_topic_list)
-    elif list_name != None:
+    logger.info(f"list_name= {list_name}")
+    logger.info(f"list_id= {list_id}")
+    logger.info(f"list_id= {list_id}")
+    logger.info(f"topic_name= {topic_name}")
+    logger.info(f"topic_id= {topic_id}")
+    logger.info(f"list_id != None = {list_id != None}")
+    
+    if topic_name != None:
+        all_topic = get_all_topics()
+        d = get_topic(topic_id)
+        ff = DownloadTopic().download_topic(topic_id=topic_id, all_topic=all_topic)
+        with open(f"{file_path_admin}/static/{topic_name}.css", 'w', encoding='utf-8') as f:
+            f.write(d)
+    
+        item = items_load()
+        get_style = GetTopic(ff).get_topic_for_id()
+        logger.info(get_style)
+        return render_template(HtmlPageName.index, items=item, style=get_style, current_topic=get_style)
+    elif list_id != None:
         item = get_list_question(False, url_question_list)
         
         h = [x['Qst']['id'] for x in item]
 
         QuestionList().save_in_list(list_name, h, item)
         blanc = items_load(FileNameAdmin.filename_list)
+        get_style = GetTopic(1).get_topic()
+        
         return render_template(HtmlPageName.question_list, items=blanc, style=get_style, current_topic=get_style)
 
 @app.route("/change_topic/<int:topic_id>")
@@ -626,10 +642,10 @@ if __name__ == "__main__":
     FirstRun().create_json_file()
 
     windows = webview.create_window('Admin', app, fullscreen=True)
-    #webview.start()
+    webview.start()
 
     host = "127.0.0.1"
     port = 5001
 
     url = f"http://{host}:{port}"
-    app.run(debug=True)
+    #app.run(debug=True)

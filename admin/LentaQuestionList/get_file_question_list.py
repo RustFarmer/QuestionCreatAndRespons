@@ -18,7 +18,7 @@ def create_url_for_download(url: str) -> str:
 
 
 
-def get_url_question_list(list_id: int | str, URL_DOWNLOAD_FILE="list") -> str | None:
+def get_url_question_list(list_id: int | str) -> str | None:
     """
     Получает ссылку для скачивания списка вопросов по его list_id.
 
@@ -26,11 +26,7 @@ def get_url_question_list(list_id: int | str, URL_DOWNLOAD_FILE="list") -> str |
     :return: Ссылка для скачивания или None, если ссылка не найдена / произошла ошибка.
     """
     
-    if URL_DOWNLOAD_FILE == "list":
-        URL_DOWNLOAD_FILE = create_url_for_download(list_git_url)
-    
-    logger.info(URL_DOWNLOAD_FILE)    
-    logger.info(URL_DOWNLOAD_FILE == "topic")
+    URL_DOWNLOAD_FILE = create_url_for_download(list_git_url)
     
     try:
         response = requests.get(URL_DOWNLOAD_FILE, timeout=10)
