@@ -7,7 +7,7 @@ file_path_client_all = get_client_in_all_path()
 
 UPLOAD_FOLDER = f'{file_path_admin}/ImageResultScreen/Image'
 UPLOAD_FOLDER_CLIENT = f'{file_path_client}/static/images/'
-
+UPLOAD_FOLDER_RESPONSELL_ALL = f'{file_path_client_all}/static/images/'
 filename_cookie: str = f'{file_path_admin}/Cookie/local_cookie.json'
 
 load_question_list_cookie: str = f"{file_path_admin}/LentaQuestionList/Cookie/local_cookie.json"

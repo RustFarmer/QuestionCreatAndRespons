@@ -43,7 +43,7 @@ from Topic.topic import GetTopic, ChangeTopic, DownloadTopic
 from Topic.DownloadTopic.download_topic import get_topic, get_all_topics
 from firstRun import FirstRun
 from fileModule import HtmlPageName, RedirectHtmlPage, FileNameAdmin, FileNameClient, FilePathLogApp, filename_cookie, load_question_list_cookie, QuestionListPath, \
-    UPLOAD_FOLDER, UPLOAD_FOLDER_CLIENT, file_path_admin
+    UPLOAD_FOLDER, UPLOAD_FOLDER_CLIENT, UPLOAD_FOLDER_RESPONSELL_ALL,file_path_admin
 
 logger.add(f"{FilePathLogApp.file_path_app}\\appFileLog.log",
            format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}")
@@ -55,6 +55,7 @@ app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['UPLOAD_FOLDER_CLIENT'] = UPLOAD_FOLDER_CLIENT
+app.config['UPLOAD_FOLDER_RESPONSELL_ALL'] = UPLOAD_FOLDER_RESPONSELL_ALL
 
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg'}
 app.secret_key = os.getenv("oihapgoihopasdfimnposajiSuperSecretCode",
@@ -66,13 +67,22 @@ def save_uploaded_file(file):
         return None
     if not allowed_file(file.filename):
         return None
+    
     filename = secure_filename(file.filename)
+    
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     os.makedirs(app.config['UPLOAD_FOLDER_CLIENT'], exist_ok=True)
+    os.makedirs(app.config['UPLOAD_FOLDER_RESPONSELL_ALL'], exist_ok=True)
+    
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file_path_client = os.path.join(app.config['UPLOAD_FOLDER_CLIENT'], filename)
-    file.save(file_path_client)
-    shutil.copy2(file_path_client, file_path)
+    file_path_client_all = os.path.join(app.config['UPLOAD_FOLDER_RESPONSELL_ALL'], filename)
+    
+    file.save(file_path)
+    
+    shutil.copy2(file_path, file_path_client)
+    shutil.copy2(file_path, file_path_client_all)
+    
     return filename
 
 

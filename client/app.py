@@ -2,7 +2,7 @@
 import os
 import random
 import json
-# import webview
+import webview
 
 from pathlib import Path
 
@@ -141,6 +141,6 @@ if __name__ == "__main__":
     port = 5000
     url = f"http://{host}:{port}"
 
-    # windows = webview.create_window('Cient', app, fullscreen=True)
-    # webview.start()
-    app.run(debug=True)
+    windows = webview.create_window('Cient', app, fullscreen=True)
+    webview.start()
+    # app.run(debug=True)

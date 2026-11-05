@@ -30,8 +30,9 @@
                 {% if items %}
                     {% for item in items %}
                         <div class="question" data-question-id="{{ item.Qst.id }}">
+                            
                             <div class="question-name">
-                                Вопрос № {{ item.Qst.id }}:
+                                Вопрос № {{ item.Qst.id }}: {{ item.Qst.question_name }}
                                 {% if item.Qst.image %}
                                     <div style="margin-top: 8px;">
                                         <img src="{{ url_for('uploaded_file', filename=item.Qst.image) }}"
@@ -39,8 +40,6 @@
                                              style="max-width: 260px; max-height: 260px;
                                                     border-radius: 8px;">
                                     </div>
-                                {% else %}
-                                    {{ item.Qst.question_name }}
                                 {% endif %}
                             </div>
 
@@ -62,14 +61,16 @@
                                            value="{{ ans_value }}"
                                            required>
 
+                                    {% if ans_text %}
+                                        <span class="answer-text">{{ ans_text }}</span>
+                                    {% endif %}
+
                                     {% if ans_image %}
                                         <img src="{{ url_for('uploaded_file', filename=ans_image) }}"
                                              alt="answer image"
                                              style="max-width: 140px; max-height: 140px;
                                                     border-radius: 6px; vertical-align: middle;
                                                     margin-left: 8px;">
-                                    {% else %}
-                                        <span class="answer-text">{{ ans_text }}</span>
                                     {% endif %}
                                 </label>
                             {% endfor %}

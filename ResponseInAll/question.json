@@ -35,5 +35,24 @@
             "image": null,
             "id": 2
         }
+    },
+    {
+        "Qst": {
+            "question_name": "фыва",
+            "answer": [
+                {
+                    "text": "фыва",
+                    "image": "2021-01-29-0002.jpg"
+                }
+            ],
+            "right_answer": [
+                {
+                    "text": "ВФА",
+                    "image": "2021-01-29-0004.jpg"
+                }
+            ],
+            "image": "JPG",
+            "id": 3
+        }
     }
 ]
