@@ -176,11 +176,12 @@ class QuestionList:
             with open(self.filename, 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
 
-
 class ChangeQuestionList:
     def __init__(self):
         self.filename_CLIENT = FileNameClient.filename_CLINET_question
         self.filename = FileNameAdmin.filename_question
+        self.filename_CLIENT_IN_All = FileNameClient.filename_CLIENT_IN_ALL_question
+
 
     def update_question_list(self, file):
         with open(self.filename, 'w', encoding='utf-8') as f:
@@ -188,7 +189,9 @@ class ChangeQuestionList:
 
         with open(self.filename_CLIENT, 'w', encoding='utf-8') as f:
             json.dump(file, f, indent=4, ensure_ascii=False)
-
+            
+        with open(self.filename_CLIENT_IN_All, 'w', encoding='utf-8') as f:
+            json.dump(file, f, indent=4, ensure_ascii=False)
 
 class ChangeQuestion:
     def __init__(self, question_id):

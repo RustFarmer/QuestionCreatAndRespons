@@ -30,6 +30,7 @@ class HtmlPageName:
     lenta_list_question = "lenta_list_question.html"
     lenta_check_list_preview = "lenta_check_list_preview.html"
     shope = "shope.html"
+    importSdoRimsou = "import_question_list_from_sdo_rimsou.html"
 
 @dataclass(frozen=True)
 class RedirectHtmlPage:
@@ -89,7 +90,7 @@ class QuestionListPath:
         .replace("/blob/", "/")
     )
     download_url_file = (
-        "https://github.com/RustFarmer/Test/blob/main/download_url_file.json"
+        "https://github.com/RustFarmer/Test/blob/main/questionList/download_url_file.json"
         .replace("github.com", "raw.githubusercontent.com")
         .replace("/blob/", "/")
     )

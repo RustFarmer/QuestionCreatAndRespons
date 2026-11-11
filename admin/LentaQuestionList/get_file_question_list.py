@@ -27,12 +27,12 @@ def get_url_question_list(list_id: int | str) -> str | None:
     """
     
     URL_DOWNLOAD_FILE = create_url_for_download(list_git_url)
-    
+    logger.info(URL_DOWNLOAD_FILE)
     try:
         response = requests.get(URL_DOWNLOAD_FILE, timeout=10)
         response.raise_for_status()
         
-        logger.info(response.raise_for_status())
+        logger.info(response.text)
         
         data: dict = response.json()
     except (requests.RequestException, ValueError) as e:

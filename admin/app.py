@@ -41,9 +41,10 @@ from LentaQuestionList.get_file_question_list import get_url_question_list
 
 from Topic.topic import GetTopic, ChangeTopic, DownloadTopic
 from Topic.DownloadTopic.download_topic import get_topic, get_all_topics
+from ExportInSdoRimsu.export_in_sdo_rimsu import save_parsed_via_question_list
 from firstRun import FirstRun
 from fileModule import HtmlPageName, RedirectHtmlPage, FileNameAdmin, FileNameClient, FilePathLogApp, filename_cookie, load_question_list_cookie, QuestionListPath, \
-    UPLOAD_FOLDER, UPLOAD_FOLDER_CLIENT, UPLOAD_FOLDER_RESPONSELL_ALL,file_path_admin
+    UPLOAD_FOLDER, UPLOAD_FOLDER_CLIENT, UPLOAD_FOLDER_RESPONSELL_ALL, file_path_admin
 
 logger.add(f"{FilePathLogApp.file_path_app}\\appFileLog.log",
            format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}")
@@ -562,9 +563,8 @@ def lenta_check_list_preview(list_id, topic):
     get_style = GetTopic(1).get_topic()
     
     url_question_list = get_url_question_list(list_id)
-    url_topic_list = get_url_question_list(list_id)
-    logger.info(f"url_question_list={url_question_list!r}")
-    logger.info(f"url_topic_list={url_topic_list!r}")
+    url_topic_list = url_question_list
+    logger.info(f"url_question_list=url_question_list={url_question_list!r}")
 
     logger.info(url_topic_list)
     logger.info(topic)
@@ -581,7 +581,7 @@ def lenta_check_list_preview(list_id, topic):
             logger.error(f"Не удалось получить ссылку для list_id={list_id}")
             return "Не удалось получить ссылку на список вопросов", 502
 
-        item = get_list_question(False, url_question_list)
+        item = get_list_question(url_question_list)
         if item is None:
             logger.error(f"Не удалось загрузить список вопросов для list_id={list_id}")
             return "Не удалось загрузить список вопросов", 502
@@ -615,7 +615,7 @@ def lenta_question_list_download(list_name=None, list_id=None, topic_name=None, 
         logger.info(get_style)
         return render_template(HtmlPageName.index, items=item, style=get_style, current_topic=get_style)
     elif list_id != None:
-        item = get_list_question(False, url_question_list)
+        item = get_list_question(url_question_list)
         
         h = [x['Qst']['id'] for x in item]
 
@@ -637,8 +637,23 @@ def change_topic(topic_id: int):
     logger.info(get_style)
     return redirect(url_for(RedirectHtmlPage.index, items=itemss, update=value_check, update_url=update_url, style=get_style, current_topic=get_style))
 
+@app.route("/importQuestionListfromSdoRimsou")
+def import_question_list_from_sdo_rimsou():
+    get_style = GetTopic(1).get_topic()
+    return render_template(HtmlPageName.importSdoRimsou, style=get_style, current_topic=get_style)
 
+@app.route('/UploadFile', methods=['POST'])
+def upload_file():
+    if 'uploadedFile' not in request.files:
+        return 'Файл не найден в запросе', 400
 
+    file = request.files['uploadedFile']
+    print(file, "iwqh-5o0qp2nithjq0-24975-3q409857689-3")
+    save_parsed_via_question_list(file)
+    return redirect(url_for(RedirectHtmlPage.index))
+
+    
+    
 @app.route("/exitProgram")
 def close_program() -> None:
     return windows.destroy()
@@ -652,10 +667,10 @@ if __name__ == "__main__":
     FirstRun().create_json_file()
 
     windows = webview.create_window('Admin', app, fullscreen=True)
-    webview.start()
+    #webview.start()
 
     host = "127.0.0.1"
     port = 5001
 
     url = f"http://{host}:{port}"
-    #app.run(debug=True)
+    app.run(debug=True)

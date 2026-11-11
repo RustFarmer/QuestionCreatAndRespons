@@ -13,8 +13,7 @@ def get_absolute_path() -> Path:
 
 def get_client_path(flag=True):
     return Path(f'{get_absolute_path().parent}\\client')
-    # else:
-    # return Path(f'{get_absolute_path().parent.parent}\\client\\_internal')
+    #return Path(f'{get_absolute_path().parent.parent}\\client\\_internal')
 
 
 logger.add(f"{get_absolute_path()}\\Log\\FirstRunfile.log",
