@@ -142,11 +142,12 @@ def last_question(question_id):
 
             return render_template(HtmlPageName.index, items=[item])
 
+    return index()
 
 if __name__ == "__main__":
     host = "127.0.0.1"
     port = 5000
     url = f"http://{host}:{port}"
-    # app.run(debug=True)
+    app.run(debug=True)
     windows = webview.create_window('ResponseInAll', app, fullscreen=True)
-    webview.start()
+    #webview.start()

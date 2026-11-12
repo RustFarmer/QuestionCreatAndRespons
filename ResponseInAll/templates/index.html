@@ -103,8 +103,31 @@
     <div id="header_id"><div id="a_id"></div></div>
 
     <script>
+        let lastGoodURL = null;
+        let cachedCardHTML = null;
+
         function goBack(e) {
             e.preventDefault();
+
+            const msg = document.getElementById('no-questions-message');
+            const isNoQuestionsShown = msg && msg.style.display === 'block';
+
+            if (isNoQuestionsShown) {
+                if (lastGoodURL) {
+                    const url = lastGoodURL;
+                    lastGoodURL = null;
+                    loadPage(url, false);
+                    return;
+                }
+
+                if (cachedCardHTML && restoreCachedQuestion()) {
+                    return;
+                }
+
+                window.location.href = '/';
+                return;
+            }
+
             if (window.history.length > 1) {
                 window.history.back();
             } else {
@@ -136,10 +159,50 @@
 
         function showNoQuestions() {
             const form = document.getElementById('all-answers-form');
-            if (form) form.style.display = 'none';
+            const card = document.getElementById('question-card');
 
+            if (card && card.children.length > 0) {
+                const clone = card.cloneNode(true);
+                clone.querySelectorAll('[data-bound]').forEach(el => el.removeAttribute('data-bound'));
+                const html = clone.outerHTML;
+                if (html && html.trim().length > 0) {
+                    cachedCardHTML = html;
+                }
+            }
+
+            if (form) form.style.display = 'none';
             const msg = document.getElementById('no-questions-message');
             if (msg) msg.style.display = 'block';
+        }
+
+        function restoreCachedQuestion() {
+            if (!cachedCardHTML) return false;
+
+            try {
+                const oldCard = document.getElementById('question-card');
+                if (!oldCard) return false;
+
+                const wrap = document.createElement('div');
+                wrap.innerHTML = cachedCardHTML.trim();
+                const newCard = wrap.firstElementChild;
+                if (!newCard) return false;
+
+                newCard.querySelectorAll('[data-bound]')
+                       .forEach(el => el.removeAttribute('data-bound'));
+
+                oldCard.replaceWith(newCard);
+
+                const form = document.getElementById('all-answers-form');
+                if (form) form.style.display = '';
+                const msg = document.getElementById('no-questions-message');
+                if (msg) msg.style.display = 'none';
+
+                bindNavArrows();
+                cachedCardHTML = null;
+                return true;
+            } catch (err) {
+                return false;
+            }
         }
 
         function bindNavArrows() {
@@ -154,7 +217,7 @@
             });
         }
 
-        async function navigateTo(url) {
+        async function loadPage(url, addToHistory) {
             try {
                 const response = await fetch(url, {
                     headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -163,11 +226,7 @@
                 const text = await response.text();
 
                 let data = null;
-                try {
-                    data = JSON.parse(text);
-                } catch (_) {
-                    data = null;
-                }
+                try { data = JSON.parse(text); } catch (_) { data = null; }
 
                 if (data && typeof data === 'object' && data['No question'] === true) {
                     showNoQuestions();
@@ -182,18 +241,33 @@
 
                 if (newCard && oldCard) {
                     oldCard.replaceWith(newCard);
+
                     document.getElementById('no-questions-message').style.display = 'none';
                     document.getElementById('all-answers-form').style.display = '';
+
+                    lastGoodURL = url;
+                    cachedCardHTML = null;
+
                     bindNavArrows();
-                    history.pushState(null, '', url);
+
+                    if (addToHistory) {
+                        window.history.pushState(null, '', url);
+                    }
                 } else {
                     window.location.href = url;
                 }
             } catch (err) {
-                console.error('Navigation error:', err);
                 window.location.href = url;
             }
         }
+
+        function navigateTo(url) {
+            return loadPage(url, true);
+        }
+
+        window.addEventListener('popstate', function () {
+            loadPage(window.location.href, false);
+        });
 
         async function checkQuestion(btn) {
             const questionEl = btn.closest('.question');
