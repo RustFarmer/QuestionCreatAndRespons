@@ -1504,3 +1504,109 @@ button.btn-small:hover,
         margin-right: 0;
     }
 }
+.whats-new-bell { position: relative; }
+.whats-new-bell > summary { list-style: none; cursor: pointer; }
+.whats-new-bell > summary::-webkit-details-marker { display: none; }
+.whats-new-bell > summary::marker { content: ""; }
+
+.notification-card { position: relative; }
+
+.notification-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    color: #06101f;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    background: var(--accent-2);
+    box-shadow: 0 0 14px rgba(49, 208, 170, 0.7);
+    animation: notification-pulse 1.6s infinite alternate;
+}
+
+@keyframes notification-pulse {
+    from { transform: scale(1); }
+    to   { transform: scale(1.15); }
+}
+
+.whats-new-popover {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    z-index: 1100;
+    width: 380px;
+    padding: 20px;
+    border-radius: var(--radius);
+    color: var(--text);
+    background: #111c33;
+    border: 1px solid var(--border-strong);
+    box-shadow:
+        var(--shadow),
+        0 0 28px rgba(79, 140, 255, 0.25);
+}
+
+.whats-new-popover h3 {
+    margin: 0 0 4px;
+    color: var(--accent);
+    font-size: 17px;
+    text-shadow: 0 0 10px rgba(79, 140, 255, 0.4);
+}
+
+.whats-new-version {
+    margin: 0 0 16px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.whats-new-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.whats-new-list li {
+    display: flex;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.45;
+    background: rgba(255, 255, 255, 0.045);
+    border-left: 3px solid var(--accent);
+}
+
+.whats-new-list li i {
+    color: var(--accent);
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.whats-new-btn-ok {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 18px;
+    border-radius: var(--radius-sm);
+    color: #ffffff !important;
+    font-weight: 800;
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--accent), #726cff);
+    box-shadow: 0 10px 24px rgba(79, 140, 255, 0.25);
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.whats-new-btn-ok:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+}

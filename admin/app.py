@@ -2,14 +2,12 @@
 import os
 import shutil
 import json
-import requests
 import webview
 
-from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory, session
 from werkzeug.utils import secure_filename
 from pathlib import Path
 from loguru import logger
@@ -26,11 +24,11 @@ from ImageResultScreen.delete_image import DeleteImage
 
 from PassCutOff.pass_cut_off import PassCutOff
 
-from Settings.UpdateProgram.update import Update
 from Settings.UpdateProgram.GetFileUrl.getFileUrlForDownload import getFileUrlForDownload
 from Settings.UpdateProgram.SaveUrlFile.save_url_file import SaveUrlFile
 from Settings.SettingsPage.settings_page import SettingsPage
 from Settings.module import file_data_url
+from Settings.WhatNew.what_new import get_whats_new_dismiss
 
 from Cookie.local_cookie import update_session
 from Password.change_password import ChangePassword
@@ -52,6 +50,10 @@ logger.add(f"{FilePathLogApp.file_path_app}\\appFileLog.log",
 logger.info(f"{FilePathLogApp.file_path_app}\\appFileLog.log")
 d = 0
 
+CHANGELOG = get_whats_new_dismiss()
+
+logger.info(CHANGELOG)
+
 app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -61,7 +63,6 @@ app.config['UPLOAD_FOLDER_RESPONSELL_ALL'] = UPLOAD_FOLDER_RESPONSELL_ALL
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg'}
 app.secret_key = os.getenv("oihapgoihopasdfimnposajiSuperSecretCode",
                            "AKRJGFUgfockbucgekdjfbgaljydgfcabsdfojhags--=204913-048=ey")
-
 
 def save_uploaded_file(file):
     if not file or not file.filename:
@@ -86,12 +87,7 @@ def save_uploaded_file(file):
     
     return filename
 
-
 def cookie(filename=filename_cookie) -> tuple[Any, str | FileNotFoundError | None]:
-    """
-    Returns:
-        value_check, update_url
-    """
     value_check = update_session(filename, file_data_url=file_data_url)
     try:
         if value_check:
@@ -106,12 +102,6 @@ def cookie(filename=filename_cookie) -> tuple[Any, str | FileNotFoundError | Non
     logger.info(update_url)
 
     return value_check, update_url
-
-
-@app.route('/uploads/<path:filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
 
 def items_load(filenames=FileNameAdmin.filename_question):
     try:
@@ -138,15 +128,29 @@ def items_load(filenames=FileNameAdmin.filename_question):
 
     return data
 
-
 def change_items_load(item):
     with open(FileNameAdmin.filename_question, 'w', encoding='utf-8') as f:
         json.dump(item, f, ensure_ascii=False, indent=4)
 
     with open(FileNameClient.filename_CLINET_question, 'w', encoding='utf-8') as f:
         json.dump(item, f, ensure_ascii=False, indent=4)
+        
+@app.route('/uploads/<path:filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
+@app.context_processor
+def inject_whats_new():
+    """Автоматически доступно во всех шаблонах."""
+    return {
+        "whats_new": CHANGELOG,
+        "whats_new_show": session.get("whats_new_seen") != CHANGELOG["version"],
+    }
 
+@app.route("/whats_new/dismiss")
+def whats_new_dismiss():
+    session["whats_new_seen"] = CHANGELOG["version"]
+    return redirect(request.referrer or url_for("index"))
 
 @app.route('/')
 def index():
@@ -628,14 +632,7 @@ def lenta_question_list_download(list_name=None, list_id=None, topic_name=None, 
 @app.route("/change_topic/<int:topic_id>")
 def change_topic(topic_id: int):
     ChangeTopic().change_topic()
-    itemss = items_load()
-    value_check, update_url = cookie()
-
-    logger.info(itemss)
-    get_style = GetTopic(1).get_topic()
-    
-    logger.info(get_style)
-    return redirect(url_for(RedirectHtmlPage.index, items=itemss, update=value_check, update_url=update_url, style=get_style, current_topic=get_style))
+    return redirect(url_for("index"))
 
 @app.route("/importQuestionListfromSdoRimsou")
 def import_question_list_from_sdo_rimsou():

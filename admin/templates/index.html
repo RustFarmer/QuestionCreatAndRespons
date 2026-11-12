@@ -71,6 +71,28 @@
             </a>
         {% endif %}
     </div>
+
+    <details class="whats-new-bell">
+        <summary class="update-card notification-card" title="Что нового">
+            <i class="fa fa-bell"></i>
+            {% if whats_new_show %}
+                <span class="notification-badge">new</span>
+            {% endif %}
+        </summary>
+        <div class="whats-new-popover">
+            <h3><i class="fa fa-gift"></i> {{ whats_new.title }}</h3>
+            <p class="whats-new-version">Версия {{ whats_new.version }} · {{ whats_new.date }}</p>
+            <ul class="whats-new-list">
+                {% for item in whats_new['items'] %}
+                    <li><i class="fa {{ item.icon }}"></i> {{ item.text }}</li>
+                {% endfor %}
+            </ul>
+            <a href="{{ url_for('whats_new_dismiss') }}" class="whats-new-btn-ok">
+                <i class="fa fa-check"></i> Понятно
+            </a>
+        </div>
+    </details>
+
     <div class="update-card">
         <div class="settings-icon"><a class="fa fa-gear" href="/settings"></a></div>
     </div>
@@ -239,8 +261,6 @@
         });
     </script>
 </div>
-
-
 
 </body>
 </html>

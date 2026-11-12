@@ -7,6 +7,7 @@ body::before {}
 @keyframes pulse-badge {}
 @keyframes breatheRainbow {}
 @keyframes Yellowgradient {}
+@keyframes notification-pulse {}
 
 /* Шапка */
 .header {}
@@ -223,6 +224,23 @@ button.btn-small {}
 .status-message.error {}
 .status-message i {}
 
+/* Уведомление «Что нового» */
+.whats-new-bell {}
+.whats-new-bell > summary {}
+.whats-new-bell > summary::-webkit-details-marker {}
+.whats-new-bell > summary::marker {}
+.notification-card {}
+.notification-badge {}
+.whats-new-popover {}
+.whats-new-popover h3 {}
+.whats-new-popover h3 i {}
+.whats-new-version {}
+.whats-new-list {}
+.whats-new-list li {}
+.whats-new-list li i {}
+.whats-new-btn-ok {}
+.whats-new-btn-ok:hover {}
+
 /* Медиа-запросы */
 @media (max-width: 640px) {
     .card {}
@@ -237,6 +255,7 @@ button.btn-small {}
     .header a {}
     .header-badge {}
     .range-value {}
+    .whats-new-popover {}
 }
 
 @media (max-width: 700px) {
@@ -249,4 +268,5 @@ button.btn-small {}
     .actions-panel {}
     .actions-panel .btn {}
     .remove-single-btn {}
+    .whats-new-popover {}
 }

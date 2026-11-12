@@ -19,3 +19,5 @@ version_url: str = url_in_raw('https://github.com/RustFarmer/Test/blob/main/sett
 git_hab_url = 'https://github.com'
 
 file_data_url = url_in_raw('https://github.com/RustFarmer/Test/blob/main/update_url_file.json')
+
+file_path_new_version_info_data = f'{file_path}/Settings/WhatNew/new_version_data.json'
